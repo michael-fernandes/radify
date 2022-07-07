@@ -3,13 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-spring/web": "^9.4.5",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/d3-dsv": "^3.0.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.43",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
+    "@visx/axis": "^2.11.1",
+    "@visx/curve": "^2.1.0",
+    "@visx/gradient": "^2.10.0",
+    "@visx/grid": "^2.11.1",
+    "@visx/group": "^2.10.0",
+    "@visx/mock-data": "^2.1.2",
+    "@visx/responsive": "^2.10.0",
+    "@visx/scale": "^2.2.2",
+    "@visx/shape": "^2.11.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -26,7 +37,10 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "semi": 0
+    }
   },
   "browserslist": {
     "production": [
@@ -39,5 +53,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
   }
 }
