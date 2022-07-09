@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Group } from '@visx/group';
 import { LineRadial } from '@visx/shape';
 import { scaleOrdinal, scaleLog, NumberLike } from '@visx/scale';
@@ -7,18 +7,18 @@ import { LinearGradient } from '@visx/gradient';
 import { AxisLeft } from '@visx/axis';
 import { GridRadial, GridAngle } from '@visx/grid';
 import { animated, useSpring } from '@react-spring/web';
-import { UslaborData } from '../../Types/data';
+import { UslaborData } from '../../Types/data.ts';
 
 const data = require('../../datums/uslabor.json');
 
-console.log(data)
+console.log(data);
 
-const green = '#e5fd3d'
-export const blue = '#aeeef8'
-const darkgreen = '#dff84d'
-export const background = '#744cca'
-const darkbackground = '#603FA8'
-const strokeColor = '#744cca'
+const green = '#e5fd3d';
+export const blue = '#aeeef8';
+const darkgreen = '#dff84d';
+export const background = '#744cca';
+const darkbackground = '#603FA8';
+const strokeColor = '#744cca';
 const springConfig = {
   tension: 50,
 };
@@ -29,53 +29,48 @@ function extent<Datum>(data: Datum[], value: (d: Datum) => number) {
   return [Math.min(...values), Math.max(...values)]
 }
 
-// accessors
-const date = ({Month = ""}: Partial<UslaborData>) => {
-  const dd = Month.split(" ")[0]
-  return Month.split(" ")[0]
-  // return new Date(Month).valueOf()
-};
+const date = ({ Month = '' }: Partial<UslaborData>) => Month.split(' ')[0];
 
-const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"]
-const close = (d: UslaborData) => d["Bananas per lb"];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 const formatTicks = (val: NumberLike) => String(val);
 
+// Creates a circular domain where each slice is a month of the year
+const domain = Array(12).fill(0).map((d, index) => ((index * 1) * (Math.PI * 2)) / (12));
 
-const domain = Array(12).fill(0).map((d, index) =>  (index * 1) * (Math.PI * 2 ) / (12))
-console.log(domain)
-// scales
-const xScale = scaleOrdinal({
-  // range: [0, Math.PI * 2]
-  range: domain,
-  // domain: extent(data, date),
-  domain: months,
-});
-
-const yScale = scaleLog<number>({
-  domain: extent(data, close),
-});
-
-const angle = (d: UslaborData) => {
-  return xScale(date(d)) ?? 0
-};
-
-const radius = (d: UslaborData) => yScale(close(d)) ?? 0;
 const padding = 20;
 
 const firstPoint = data[0];
 const lastPoint = data[data.length - 1];
-console.log(data,firstPoint, lastPoint)
-console.log(xScale("Mar"))
+
+
 export type LineRadialProps = {
   width: number;
   height: number;
-  animate?: boolean;
+  animate: boolean;
+  dimensionName: string;
 };
 
-const Radial = ({ width, height, animate = true }: LineRadialProps) => {
+function Radial({ width, height, animate = true, dimensionName = "Bananas per lb" }: LineRadialProps) {
   const lineRef = useRef<SVGPathElement>(null);
   const [lineLength, setLineLength] = useState<number>(0);
   const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
+  const yAccessor = (d: UslaborData) => d[dimensionName]
+
+  // Accessors
+
+  //Scales
+  const yScale = scaleLog<number>({
+    domain: extent(data, yAccessor),
+  });
+  const xScale = scaleOrdinal({
+    // range: [0, Math.PI * 2]
+    range: domain,
+    // domain: extent(data, date),
+    domain: months,
+  });
+
+  const radius = (d: UslaborData) => yScale(yAccessor(d)) ?? 0;
+  const angle = (d: UslaborData) => xScale(date(d)) ?? 0;
 
   const spring = useSpring({
     frame: shouldAnimate ? 0 : 1,
@@ -112,15 +107,6 @@ const Radial = ({ width, height, animate = true }: LineRadialProps) => {
         <LinearGradient from={green} to={blue} id="line-gradient" />
         <rect width={width} height={height} fill={background} rx={14} />
         <Group top={height / 2} left={width / 2}>
-          <GridAngle
-            scale={xScale}
-            outerRadius={height / 2 - padding}
-            stroke={green}
-            strokeWidth={1}
-            strokeOpacity={0.3}
-            strokeDasharray="5,2"
-            numTicks={10}
-          />
           <GridRadial
             scale={yScale}
             numTicks={6}
@@ -135,7 +121,7 @@ const Radial = ({ width, height, animate = true }: LineRadialProps) => {
             scale={reverseYScale}
             numTicks={5}
             tickStroke="none"
-            tickLabelProps={(val) => ({
+            tickLabelProps={() => ({
               fontSize: 8,
               fill: blue,
               fillOpacity: 1,
@@ -180,16 +166,24 @@ const Radial = ({ width, height, animate = true }: LineRadialProps) => {
             }}
           </LineRadial>
 
-          {[firstPoint, lastPoint].map((d, i) => {
+          {/* {[firstPoint, lastPoint].map((d) => {
             const cx = ((angle(d)) * Math.PI) / 180;
-            const cy = -(yScale(close(d)) ?? 0);
-            console.log(cy, cx)
-            return <circle key={`line-cap-${i}`} cx={cx} cy={cy} fill={darkgreen} r={3} />;
-          })}
+            const cy = -(yScale(yAccessor(d)) ?? 0);
+            return <circle key={`line-cap-${d.Month}`} cx={cx} cy={cy} fill={darkgreen} r={3} />;
+          })} */}
+          <GridAngle
+            scale={xScale}
+            outerRadius={height / 2 - padding}
+            stroke={green}
+            strokeWidth={1}
+            strokeOpacity={0.3}
+            strokeDasharray="5,2"
+            numTicks={10}
+          />
         </Group>
       </svg>
     </>
   );
-};
+}
 
 export default Radial;
