@@ -93,7 +93,7 @@ function Radial({ width = 500, height = 500, animate = true, dimensionName = "Ba
   const handlePress = () => setShouldAnimate(true);
 
   return (
-    <div>
+    <div className="grid-item">
       <h2>{dimensionName}</h2>
       {animate && (
         <>
