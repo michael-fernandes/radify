@@ -9,9 +9,7 @@ import { GridRadial, GridAngle } from '@visx/grid';
 import { animated, useSpring } from '@react-spring/web';
 import { UslaborData } from '../../Types/data.ts';
 
-const data = require('../../datums/uslabor.json');
-
-console.log(data);
+const data = require('../../../datums/uslabor.json');
 
 const green = '#e5fd3d';
 export const blue = '#aeeef8';
@@ -26,7 +24,7 @@ const springConfig = {
 // utils
 function extent<Datum>(data: Datum[], value: (d: Datum) => number) {
   const values = data.map(value)
-  return [Math.min(...values), Math.max(...values)]
+  return [Math.min(...values) || 1, Math.max(...values)]
 }
 
 const date = ({ Month = '' }: Partial<UslaborData>) => Month.split(' ')[0];
@@ -44,17 +42,17 @@ const lastPoint = data[data.length - 1];
 
 
 export type LineRadialProps = {
-  width: number;
-  height: number;
-  animate: boolean;
+  width?: number;
+  height?: number;
+  animate?: boolean;
   dimensionName: string;
 };
 
-function Radial({ width, height, animate = true, dimensionName = "Bananas per lb" }: LineRadialProps) {
+function Radial({ width = 500, height = 500, animate = true, dimensionName = "Bananas per lb" }: LineRadialProps) {
   const lineRef = useRef<SVGPathElement>(null);
   const [lineLength, setLineLength] = useState<number>(0);
   const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
-  const yAccessor = (d: UslaborData) => d[dimensionName]
+  const yAccessor = (d: UslaborData) => d[dimensionName] || 0
 
   // Accessors
 
@@ -62,6 +60,7 @@ function Radial({ width, height, animate = true, dimensionName = "Bananas per lb
   const yScale = scaleLog<number>({
     domain: extent(data, yAccessor),
   });
+
   const xScale = scaleOrdinal({
     // range: [0, Math.PI * 2]
     range: domain,
@@ -94,7 +93,8 @@ function Radial({ width, height, animate = true, dimensionName = "Bananas per lb
   const handlePress = () => setShouldAnimate(true);
 
   return (
-    <>
+    <div>
+      <h2>{dimensionName}</h2>
       {animate && (
         <>
           <button type="button" onClick={handlePress} onTouchStart={handlePress}>
@@ -182,7 +182,7 @@ function Radial({ width, height, animate = true, dimensionName = "Bananas per lb
           />
         </Group>
       </svg>
-    </>
+    </div>
   );
 }
 
