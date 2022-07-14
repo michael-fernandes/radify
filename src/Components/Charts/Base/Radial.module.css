@@ -1,0 +1,21 @@
+.grid_wrapper:first-child {
+  grid-column: 1 / 1;
+  grid-row: 1 / 1;
+}
+
+.chart_title {
+  font-weight: 500;
+  color: grey;
+  margin: 5px;
+}
+
+.chart {
+  border: 2px solid #f7f7f7;
+  /* height: 100%; */
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+
+  aspect-ratio: 1;
+}

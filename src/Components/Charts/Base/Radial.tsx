@@ -1,26 +1,36 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { Group } from '@visx/group';
 import { LineRadial } from '@visx/shape';
 import { scaleOrdinal, scaleLog, NumberLike } from '@visx/scale';
 import { curveBasisOpen } from '@visx/curve';
-import { LinearGradient } from '@visx/gradient';
+import { LinearGradient, GradientPinkBlue } from '@visx/gradient';
 import { AxisLeft } from '@visx/axis';
 import { GridRadial, GridAngle } from '@visx/grid';
 import { animated, useSpring } from '@react-spring/web';
-import { UslaborData } from '../../Types/data.ts';
+import { UslaborData } from '../../../Types/data';
+import { useMeasure } from "react-use";
+
+import styles from "./Radial.module.css"
 
 const data = require('../../../datums/uslabor.json');
+
+
+const lineStartColor = "#011959"
+const lineEndColor = "#FACCFA"
 
 const green = '#e5fd3d';
 export const blue = '#aeeef8';
 const darkgreen = '#dff84d';
-export const background = '#744cca';
+export const background = 'grey';
 const darkbackground = '#603FA8';
 const strokeColor = '#744cca';
 const springConfig = {
   tension: 50,
 };
 
+interface Acc {
+  [key: string]: UslaborData[]
+}
 // utils
 function extent<Datum>(data: Datum[], value: (d: Datum) => number) {
   const values = data.map(value)
@@ -42,17 +52,20 @@ const lastPoint = data[data.length - 1];
 
 
 export type LineRadialProps = {
-  width?: number;
-  height?: number;
+  // width?: number;
+  // height?: number;
   animate?: boolean;
   dimensionName: string;
 };
 
-function Radial({ width = 500, height = 500, animate = true, dimensionName = "Bananas per lb" }: LineRadialProps) {
+function Radial({ animate = true, dimensionName = "Bananas per lb" }: LineRadialProps) {
+  const [ref, { width, height }] = useMeasure<HTMLDivElement>();
+  console.log(width, height)
+
   const lineRef = useRef<SVGPathElement>(null);
   const [lineLength, setLineLength] = useState<number>(0);
   const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
-  const yAccessor = (d: UslaborData) => d[dimensionName] || 0
+  const yAccessor = (d: UslaborData) => d[dimensionName] || 0 as number
 
   // Accessors
 
@@ -85,104 +98,121 @@ function Radial({ width = 500, height = 500, animate = true, dimensionName = "Ba
     }
   }, [effectDependency]);
 
-  if (width < 10) return null;
+  // if (width < 10) return null;
 
   // Update scale output to match component dimensions
   yScale.range([0, height / 2 - padding]);
   const reverseYScale = yScale.copy().range(yScale.range().reverse());
-  const handlePress = () => setShouldAnimate(true);
+  // const handlePress = () => setShouldAnimate(true);
 
+  const dividedData = useMemo(() => {
+    return data.reduce((acc: Acc, current: UslaborData) => {
+      const { Month }: { Month: string } = current
+      const year: string = Month.split(" ")[1]
+      if (!acc[year]) {
+        acc[year] = [current]
+      }
+      acc[year] = [...acc[year], current]
+      return acc
+    }, {})
+  }, [data]);
+  console.log(dividedData)
   return (
-    <div className="grid-item">
-      <h2>{dimensionName}</h2>
-      {animate && (
+    <div className={styles.grid_wrapper}>
+      <h3 className={styles.chart_title}>{dimensionName}</h3>
+      <div className={styles.chart} ref={ref}>
+        <div >
+          {/* {animate && (
         <>
           <button type="button" onClick={handlePress} onTouchStart={handlePress}>
             Animate
           </button>
           <br />
         </>
-      )}
-      <svg width={width} height={height} onClick={() => setShouldAnimate(!shouldAnimate)}>
-        <LinearGradient from={green} to={blue} id="line-gradient" />
-        <rect width={width} height={height} fill={background} rx={14} />
-        <Group top={height / 2} left={width / 2}>
-          <GridRadial
-            scale={yScale}
-            numTicks={6}
-            stroke={blue}
-            strokeWidth={1}
-            fill={blue}
-            fillOpacity={0.1}
-            strokeOpacity={0.2}
-          />
-          <AxisLeft
-            top={-height / 2 + padding}
-            scale={reverseYScale}
-            numTicks={5}
-            tickStroke="none"
-            tickLabelProps={() => ({
-              fontSize: 8,
-              fill: blue,
-              fillOpacity: 1,
-              textAnchor: 'middle',
-              dx: '1em',
-              dy: '-0.5em',
-              stroke: strokeColor,
-              strokeWidth: 0.5,
-              paintOrder: 'stroke',
-            })}
-            tickFormat={formatTicks}
-            hideAxisLine
-          />
-          <LineRadial angle={angle} radius={radius} curve={curveBasisOpen}>
-            {({ path }) => {
-              const d = path(data) || '';
-              return (
-                <>
-                  <animated.path
-                    d={d}
-                    ref={lineRef}
-                    strokeWidth={2}
-                    strokeOpacity={0.8}
-                    strokeLinecap="round"
-                    fill="none"
-                    stroke={animate ? darkbackground : 'url(#line-gradient)'}
-                  />
-                  {shouldAnimate && (
-                    <animated.path
-                      d={d}
-                      strokeWidth={2}
-                      strokeOpacity={0.8}
-                      strokeLinecap="round"
-                      fill="none"
-                      stroke="url(#line-gradient)"
-                      strokeDashoffset={spring.frame.to((v) => v * lineLength)}
-                      strokeDasharray={lineLength}
-                    />
-                  )}
-                </>
-              );
-            }}
-          </LineRadial>
+      )} */}
+          <svg width={width} height={height} onClick={() => setShouldAnimate(!shouldAnimate)}>
+            <LinearGradient from={green} to={blue} id="line-gradient" />
+            <LinearGradient from={lineStartColor} to={lineEndColor} id="line" />
+            <rect width={width} height={height} fill={background} rx={14} />
+            <Group top={height / 2} left={width / 2}>
+              <GridRadial
+                scale={yScale}
+                numTicks={6}
+                stroke={darkgreen}
+                strokeWidth={1}
+                fill={darkgreen}
+                fillOpacity={0.1}
+                strokeOpacity={0.2}
+              />
+              <AxisLeft
+                top={-height / 2 + padding}
+                scale={reverseYScale}
+                numTicks={5}
+                tickStroke="none"
+                tickLabelProps={() => ({
+                  fontSize: 8,
+                  fill: blue,
+                  fillOpacity: 1,
+                  textAnchor: 'middle',
+                  dx: '1em',
+                  dy: '-0.5em',
+                  stroke: strokeColor,
+                  strokeWidth: 0.5,
+                  paintOrder: 'stroke',
+                })}
+                tickFormat={formatTicks}
+                hideAxisLine
+              />
+              <LineRadial stroke="url('#line-gradient')" angle={angle} radius={radius} curve={curveBasisOpen}>
+                {({ path }) => {
+                  const d = path(data) || '';
+                  return (
+                    <>
+                      <animated.path
+                        d={d}
+                        ref={lineRef}
+                        strokeWidth={2}
+                        strokeOpacity={0.8}
+                        strokeLinecap="round"
+                        fill="none"
+                        stroke={animate ? darkbackground : 'url(#line-gradient)'}
+                      />
+                      {shouldAnimate && (
+                        <animated.path
+                          d={d}
+                          strokeWidth={2}
+                          strokeOpacity={0.8}
+                          strokeLinecap="round"
+                          fill="none"
+                          stroke="url(#line-gradient)"
+                          strokeDashoffset={spring.frame.to((v) => v * lineLength)}
+                          strokeDasharray={lineLength}
+                        />
+                      )}
+                    </>
+                  );
+                }}
+              </LineRadial>
 
-          {/* {[firstPoint, lastPoint].map((d) => {
+              {/* {[firstPoint, lastPoint].map((d) => {
             const cx = ((angle(d)) * Math.PI) / 180;
             const cy = -(yScale(yAccessor(d)) ?? 0);
             return <circle key={`line-cap-${d.Month}`} cx={cx} cy={cy} fill={darkgreen} r={3} />;
           })} */}
-          <GridAngle
-            scale={xScale}
-            outerRadius={height / 2 - padding}
-            stroke={green}
-            strokeWidth={1}
-            strokeOpacity={0.3}
-            strokeDasharray="5,2"
-            numTicks={10}
-          />
-        </Group>
-      </svg>
-    </div>
+              <GridAngle
+                scale={xScale}
+                outerRadius={height / 2 - padding}
+                stroke={green}
+                strokeWidth={1}
+                strokeOpacity={0.3}
+                strokeDasharray="5,2"
+                numTicks={10}
+              />
+            </Group>
+          </svg>
+        </div>
+      </div>
+    </div >
   );
 }
 

@@ -1,0 +1,19 @@
+.grid {
+
+  margin: 10px;
+  display: grid;
+  /* grid-template-columns: repeat(3, minmax(100, 1fr)); */
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  
+  grid-gap: 1rem;
+  max-height: 100vh;
+  /* grid-template-rows: 1fr 1fr 1fr; */
+}
+
+.grid::before {
+  content: '';
+  grid-column: 1 / 1;
+  grid-row: 1 / 1;
+  padding-bottom: 100%;
+  width: 0;
+}
