@@ -12,8 +12,23 @@ import { useMeasure } from "react-use";
 
 import styles from "./Radial.module.css"
 
-const data = require('../../../datums/uslabor.json');
+const _data = require('../../../datums/uslabor.json');
 
+
+const data: UslaborData[] = _data.reduce((acc: UslaborData[], current: UslaborData) => {
+  if (!acc.length) return acc.push(current) && acc
+
+  const previous = acc[acc.length - 1]
+
+  Object.keys(current).forEach(key => {
+    if (current[key] === null) {
+      current[key] = previous[key] || 0.001
+    }
+  })
+
+  // Why does pushing have a different result than spread?
+  return acc.push(current) && acc
+}, [])
 
 const lineStartColor = "#011959"
 const lineEndColor = "#FACCFA"
@@ -60,7 +75,6 @@ export type LineRadialProps = {
 
 function Radial({ animate = true, dimensionName = "Bananas per lb" }: LineRadialProps) {
   const [ref, { width, height }] = useMeasure<HTMLDivElement>();
-  console.log(width, height)
 
   const lineRef = useRef<SVGPathElement>(null);
   const [lineLength, setLineLength] = useState<number>(0);
@@ -116,7 +130,7 @@ function Radial({ animate = true, dimensionName = "Bananas per lb" }: LineRadial
       return acc
     }, {})
   }, [data]);
-  console.log(dividedData)
+
   return (
     <div className={styles.grid_wrapper}>
       <h3 className={styles.chart_title}>{dimensionName}</h3>
@@ -132,7 +146,7 @@ function Radial({ animate = true, dimensionName = "Bananas per lb" }: LineRadial
       )} */}
           <svg width={width} height={height} onClick={() => setShouldAnimate(!shouldAnimate)}>
             <LinearGradient from={green} to={blue} id="line-gradient" />
-            <LinearGradient from={lineStartColor} to={lineEndColor} id="line" />
+            <LinearGradient from={"#1C2A6E"} to={"#BA241E"} id="line" />
             <rect width={width} height={height} fill={background} rx={14} />
             <Group top={height / 2} left={width / 2}>
               <GridRadial
@@ -163,7 +177,7 @@ function Radial({ animate = true, dimensionName = "Bananas per lb" }: LineRadial
                 tickFormat={formatTicks}
                 hideAxisLine
               />
-              <LineRadial stroke="url('#line-gradient')" angle={angle} radius={radius} curve={curveBasisOpen}>
+              <LineRadial fill="url('#line-gradient')" angle={angle} radius={radius} curve={curveBasisOpen}>
                 {({ path }) => {
                   const d = path(data) || '';
                   return (
@@ -175,7 +189,7 @@ function Radial({ animate = true, dimensionName = "Bananas per lb" }: LineRadial
                         strokeOpacity={0.8}
                         strokeLinecap="round"
                         fill="none"
-                        stroke={animate ? darkbackground : 'url(#line-gradient)'}
+                        stroke={'url(#line)'}
                       />
                       {shouldAnimate && (
                         <animated.path
