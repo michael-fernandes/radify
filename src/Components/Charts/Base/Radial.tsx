@@ -6,14 +6,23 @@ import { curveBasisOpen } from '@visx/curve';
 import { LinearGradient, GradientPinkBlue } from '@visx/gradient';
 import { AxisLeft } from '@visx/axis';
 import { GridRadial, GridAngle } from '@visx/grid';
-import { animated, useSpring } from '@react-spring/web';
 import { UslaborData } from '../../../Types/data';
 import { useMeasure } from "react-use";
+import * as d3 from 'd3'
+import { lineRadial, line } from 'd3-shape'
+
+import { getData, strokeToFill } from 'gradient-path-typescript';
 
 import styles from "./Radial.module.css"
 
 const _data = require('../../../datums/uslabor.json');
 
+const colors = d3.interpolateRgb.gamma(2.2)("blue", "red");
+
+const segments = 50;
+const samples = 10;
+const precision = 3;
+const ww = 4;
 
 const data: UslaborData[] = _data.reduce((acc: UslaborData[], current: UslaborData) => {
   if (!acc.length) return acc.push(current) && acc
@@ -26,7 +35,6 @@ const data: UslaborData[] = _data.reduce((acc: UslaborData[], current: UslaborDa
     }
   })
 
-  // Why does pushing have a different result than spread?
   return acc.push(current) && acc
 }, [])
 
@@ -65,6 +73,7 @@ const padding = 20;
 const firstPoint = data[0];
 const lastPoint = data[data.length - 1];
 
+const yAccessor = (d: UslaborData) => d[dimensionName] || 0 as number
 
 export type LineRadialProps = {
   // width?: number;
@@ -77,9 +86,9 @@ function Radial({ animate = true, dimensionName = "Bananas per lb" }: LineRadial
   const [ref, { width, height }] = useMeasure<HTMLDivElement>();
 
   const lineRef = useRef<SVGPathElement>(null);
-  const [lineLength, setLineLength] = useState<number>(0);
+  const newLine = useRef<SVGPathElement>(null);
+
   const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
-  const yAccessor = (d: UslaborData) => d[dimensionName] || 0 as number
 
   // Accessors
 
@@ -98,52 +107,44 @@ function Radial({ animate = true, dimensionName = "Bananas per lb" }: LineRadial
   const radius = (d: UslaborData) => yScale(yAccessor(d)) ?? 0;
   const angle = (d: UslaborData) => xScale(date(d)) ?? 0;
 
-  const spring = useSpring({
-    frame: shouldAnimate ? 0 : 1,
-    config: springConfig,
-    onRest: () => setShouldAnimate(false),
-  });
-
-  // set line length once it is known after initial render
-  const effectDependency = lineRef.current;
-  useEffect(() => {
-    if (lineRef.current) {
-      setLineLength(lineRef.current.getTotalLength());
-    }
-  }, [effectDependency]);
-
-  // if (width < 10) return null;
+  const radialPath = lineRadial<any>().angle(d => angle(d)).radius(d => radius(d)).curve(curveBasisOpen)
 
   // Update scale output to match component dimensions
   yScale.range([0, height / 2 - padding]);
   const reverseYScale = yScale.copy().range(yScale.range().reverse());
-  // const handlePress = () => setShouldAnimate(true);
 
-  const dividedData = useMemo(() => {
-    return data.reduce((acc: Acc, current: UslaborData) => {
-      const { Month }: { Month: string } = current
-      const year: string = Month.split(" ")[1]
-      if (!acc[year]) {
-        acc[year] = [current]
-      }
-      acc[year] = [...acc[year], current]
-      return acc
-    }, {})
-  }, [data]);
+
+  interface Sample {
+    x: number;
+    y: number;
+  }
+
+  useEffect(() => {
+    if (newLine.current && width > 100 && height > 100) {
+      const fauxPathElement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      fauxPathElement.setAttribute("d", radialPath(data) || '');
+
+      const dataSegments = getData({ path: fauxPathElement, segments, samples, precision });
+
+      const lineFunc = line<any>()
+        .x(d => d.x)
+        .y(d => d.y);
+
+      d3.select(newLine.current)
+        .selectAll('path')
+        .data(strokeToFill(dataSegments, ww, precision))
+        .enter()
+        .append('path')
+        .attr('fill', d => colors(d.progress))
+        .attr('d', d => lineFunc(d.samples));
+    }
+  }, [data, lineRef, width, height, newLine])
 
   return (
     <div className={styles.grid_wrapper}>
       <h3 className={styles.chart_title}>{dimensionName}</h3>
       <div className={styles.chart} ref={ref}>
         <div >
-          {/* {animate && (
-        <>
-          <button type="button" onClick={handlePress} onTouchStart={handlePress}>
-            Animate
-          </button>
-          <br />
-        </>
-      )} */}
           <svg width={width} height={height} onClick={() => setShouldAnimate(!shouldAnimate)}>
             <LinearGradient from={green} to={blue} id="line-gradient" />
             <LinearGradient from={"#1C2A6E"} to={"#BA241E"} id="line" />
@@ -177,36 +178,6 @@ function Radial({ animate = true, dimensionName = "Bananas per lb" }: LineRadial
                 tickFormat={formatTicks}
                 hideAxisLine
               />
-              <LineRadial fill="url('#line-gradient')" angle={angle} radius={radius} curve={curveBasisOpen}>
-                {({ path }) => {
-                  const d = path(data) || '';
-                  return (
-                    <>
-                      <animated.path
-                        d={d}
-                        ref={lineRef}
-                        strokeWidth={2}
-                        strokeOpacity={0.8}
-                        strokeLinecap="round"
-                        fill="none"
-                        stroke={'url(#line)'}
-                      />
-                      {shouldAnimate && (
-                        <animated.path
-                          d={d}
-                          strokeWidth={2}
-                          strokeOpacity={0.8}
-                          strokeLinecap="round"
-                          fill="none"
-                          stroke="url(#line-gradient)"
-                          strokeDashoffset={spring.frame.to((v) => v * lineLength)}
-                          strokeDasharray={lineLength}
-                        />
-                      )}
-                    </>
-                  );
-                }}
-              </LineRadial>
 
               {/* {[firstPoint, lastPoint].map((d) => {
             const cx = ((angle(d)) * Math.PI) / 180;
@@ -222,6 +193,9 @@ function Radial({ animate = true, dimensionName = "Bananas per lb" }: LineRadial
                 strokeDasharray="5,2"
                 numTicks={10}
               />
+            </Group>
+            <Group top={height / 2} left={width / 2} className="did we do it?">
+              <g ref={newLine} />
             </Group>
           </svg>
         </div>

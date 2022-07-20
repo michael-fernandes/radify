@@ -12,9 +12,8 @@ const RadialCharts = () => {
     <div className={styles.container}>
 
       <div className={styles.grid}>
-        {dataKeys.map(dataKey => <Radial key={dataKey} dimensionName={dataKey} />)}
-        {/* {/* <Radial key="Oranges-Navel per lb" dimensionName="Oranges-Navel per lb" /> */}
-        {/* <Radial key="Oranges-Navel per lb" dimensionName="Oranges-Navel per lb" /> */}
+        {/* {dataKeys.map(dataKey => <Radial key={dataKey} dimensionName={dataKey} />)} */}
+        <Radial key="Oranges-Navel per lb" dimensionName="Oranges-Navel per lb" />
       </div>
     </div>
   );
