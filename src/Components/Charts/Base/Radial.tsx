@@ -16,37 +16,23 @@ import { pathSegments } from '../../../utils/pathSegments';
 import { grey, linePathGradient, strokeColor } from '../../../Constants/Colors';
 import Text from '@visx/text/lib/Text';
 
-const _data = require('../../../data/uslabor.json');
-
-// probably should put this with the data it self.
-const data: UslaborData[] = _data.reduce((acc: UslaborData[], current: UslaborData) => {
-  if (!acc.length) return acc.push(current) && acc
-
-  const previous = acc[acc.length - 1]
-
-  Object.keys(current).forEach(key => {
-    if (current[key] === null) {
-      current[key] = previous[key] || 0.001
-    }
-  })
-
-  return acc.push(current) && acc
-}, [])
-
 const date = ({ Month = '' }: Partial<UslaborData>) => Month.split(' ')[0];
 
 const monthInRadians = Math.PI * 2 / 12;
 const circularDomain = Array(12).fill(0).map((_d, index) => (index) * monthInRadians);
 
-const firstPoint = data[0];
-const lastPoint = data[data.length - 1];
 
 export type LineRadialProps = {
   dimensionName: string;
+  yAccessor: any;
+  data: UslaborData[];
 };
 
-function Radial({ dimensionName = "Bananas per lb" }: LineRadialProps) {
+function Radial({ dimensionName = "Bananas per lb", yAccessor, data }: LineRadialProps) {
   const [ref, { width, height }] = useMeasure<HTMLDivElement>();
+
+  const firstPoint = data[0];
+  const lastPoint = data[data.length - 1];
 
   const lineRef = useRef<SVGPathElement>(null);
 
@@ -55,7 +41,6 @@ function Radial({ dimensionName = "Bananas per lb" }: LineRadialProps) {
     domain: MONTHS,
   });
 
-  const yAccessor = (d: UslaborData) => d[dimensionName] || 0 as number
   const yScale = scaleLog<number>({
     domain: extentByDimension(data, yAccessor),
   });
