@@ -193,9 +193,18 @@ function Radial({ animate = true, dimensionName = "Bananas per lb" }: LineRadial
                 strokeDasharray="5,2"
                 numTicks={10}
               />
-            </Group>
-            <Group top={height / 2} left={width / 2} className="did we do it?">
-              <g ref={newLine} />
+              <g ref={lineRef} />
+              {MONTHS.map((d, index) => {
+                const [x, y] = pointRadial(xScale(d) + (monthInRadians / 2), yScale.range()[1])
+
+                return <g transform={`translate(${x},${y})`}>
+                  <g transform={`rotate(${((xScale(d)) * 180 / Math.PI - 90)})translate${yScale.range()[1]}`}><g transform={(xScale(d) + Math.PI / 2) % (2 * Math.PI) < Math.PI
+                    ? "rotate(90) translate(0,25)"
+                    : "rotate(-90) translate(0,-9)"}></g>
+                    <Text textAnchor="middle">{d}</Text>
+                  </g>
+                </g>
+              })}
             </Group>
           </svg>
         </div>
