@@ -1,10 +1,8 @@
 import Radial from '../../Components/Charts/Base/Radial';
 // import './RadialChart.css'
 import styles from './RadialChart.module.css'
+const data = require('../../data/uslabor.json');
 
-const data = require('../../datums/uslabor.json');
-
-console.log(data)
 const dataKeys = Object.keys(data[0]).filter(key => key !== "Month")
 
 const RadialCharts = () => {
