@@ -1,33 +1,33 @@
 import Radial from '../../Components/Charts/Base/Radial';
-import { UslaborData } from '../../Types/data';
-// import './RadialChart.css'
+import { interpolate } from '../../utils/interpolate';
 import styles from './RadialChart.module.css'
-const _data = require('../../data/uslabor.json');
 
-// probably should put this with the data it self.
-const data: UslaborData[] = _data.reduce((acc: UslaborData[], current: UslaborData) => {
-  if (!acc.length) return acc.push(current) && acc
+const _usLaborData = require('../../data/uslabor.json');
+const _stlsfed = require('../../data/stlsfed.json');
 
-  const previous = acc[acc.length - 1]
+const cpiData = _stlsfed.map((d: any) => {
+  const dateSplit = new Date(d.Date).toDateString().split(" ")
+  const monthString = [dateSplit[1], dateSplit[3]].join(" ")
 
-  Object.keys(current).forEach(key => {
-    if (current[key] === null) {
-      current[key] = previous[key] || 0.001
-    }
-  })
+  return {
+    Month: monthString,
+    ...d
+  }
+})
 
-  return acc.push(current) && acc
-}, [])
-
-const dataKeys = Object.keys(data[0]).filter(key => key !== "Month")
+const uslaborData = interpolate(_usLaborData)
+const uslaborDataDataKeys = Object.keys(uslaborData[0]).filter(key => key !== "Month")
 
 const RadialCharts = () => {
   return (
     <div className={styles.container}>
 
       <div className={styles.grid}>
-        {/* {dataKeys.map(dataKey => <Radial key={dataKey} dimensionName={dataKey} />)} */}
-        <Radial key="Oranges-Navel per lb" dimensionName="Oranges-Navel per lb" yAccessor={(d: UslaborData) => d["Oranges-Navel per lb"] || 0} data={data} />
+        <Radial key="CPI all items" dimensionName="CPI all items" data={cpiData} />
+      </div>
+      <hr className={styles.hr} />
+      <div className={styles.grid}>
+        {uslaborDataDataKeys.map(dataKey => <Radial key={dataKey} data={uslaborData} dimensionName={dataKey} />)}
       </div>
     </div>
   );

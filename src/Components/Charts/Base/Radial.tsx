@@ -24,17 +24,18 @@ const circularDomain = Array(12).fill(0).map((_d, index) => (index) * monthInRad
 
 export type LineRadialProps = {
   dimensionName: string;
-  yAccessor: any;
+  accessor?: any;
   data: UslaborData[];
 };
 
-function Radial({ dimensionName = "Bananas per lb", yAccessor, data }: LineRadialProps) {
+function Radial({ dimensionName, accessor, data }: LineRadialProps) {
   const [ref, { width, height }] = useMeasure<HTMLDivElement>();
+  const lineRef = useRef<SVGPathElement>(null);
+
+  const yAccessor = accessor ?? ((datum: UslaborData) => datum[dimensionName])
 
   const firstPoint = data[0];
   const lastPoint = data[data.length - 1];
-
-  const lineRef = useRef<SVGPathElement>(null);
 
   const xScale = scaleOrdinal({
     range: circularDomain,
@@ -51,7 +52,7 @@ function Radial({ dimensionName = "Bananas per lb", yAccessor, data }: LineRadia
   // Update scale output to match component dimensions
   yScale.range([0, height / 2 - CHART_PADDING]);
   const reverseYScale = yScale.copy().range(yScale.range().reverse());
-
+  console.log(yScale.range())
   useEffect(() => {
     if (lineRef.current && width > 100 && height > 100) {
 
@@ -121,17 +122,17 @@ function Radial({ dimensionName = "Bananas per lb", yAccessor, data }: LineRadia
                 numTicks={10}
               />
               <g ref={lineRef} />
-              {MONTHS.map((d, index) => {
+              {/* {MONTHS.map((d, index) => {
                 const [x, y] = pointRadial(xScale(d) + (monthInRadians / 2), yScale.range()[1])
 
-                return <g transform={`translate(${x},${y})`}>
+                return <g key={d} transform={`translate(${x},${y})`}>
                   <g transform={`rotate(${((xScale(d)) * 180 / Math.PI - 90)})translate${yScale.range()[1]}`}><g transform={(xScale(d) + Math.PI / 2) % (2 * Math.PI) < Math.PI
                     ? "rotate(90) translate(0,25)"
                     : "rotate(-90) translate(0,-9)"}></g>
                     <Text textAnchor="middle">{d}</Text>
                   </g>
                 </g>
-              })}
+              })} */}
             </Group>
           </svg>
         </div>

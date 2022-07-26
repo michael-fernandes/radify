@@ -1,9 +1,14 @@
+.container {
+  margin: 10px auto;
+  max-width: 1400px;
+}
+
 .grid {
 
-  margin: 10px;
+  margin: 10px auto 10px auto;
   display: grid;
   /* grid-template-columns: repeat(3, minmax(100, 1fr)); */
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   
   grid-gap: 1rem;
   max-height: 100vh;
@@ -16,4 +21,11 @@
   grid-row: 1 / 1;
   padding-bottom: 100%;
   width: 0;
+}
+
+hr {
+  background-color: #00000033;
+  border: 0;
+  height: 2px;
+  margin: 50px auto;
 }

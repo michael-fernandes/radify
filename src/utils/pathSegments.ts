@@ -4,10 +4,10 @@ import { svgW3 } from './../Constants/constants';
 import { getData, strokeToFill } from "gradient-path-typescript";
 import { UslaborData } from "../Types/data";
 
-const segments = 50;
-const samples = 10;
-const precision = 3;
-const strokeWidth = 4;
+const SEGMENTS = 50;
+const SAMPLES = 10;
+const PRECISION = 3;
+const STROKE_WIDTH = 4;
 
 export const pathSegments = (data: UslaborData[], angle: (d: UslaborData) => number, radius: (d: UslaborData) => number) => {
   const radialPath = lineRadial<any>().angle(d => angle(d)).radius(d => radius(d)).curve(curveBasisOpen)
@@ -15,8 +15,8 @@ export const pathSegments = (data: UslaborData[], angle: (d: UslaborData) => num
   const pathEl = document.createElementNS(svgW3, 'path');
   pathEl.setAttribute("d", radialPath(data) || '');
 
-  const pathSegments = getData({ path: pathEl, segments, samples, precision });
+  const pathSegments = getData({ path: pathEl, segments: SEGMENTS, samples: SAMPLES, precision: PRECISION });
 
-  return strokeToFill(pathSegments, strokeWidth, precision)
+  return strokeToFill(pathSegments, STROKE_WIDTH, PRECISION)
 
 }

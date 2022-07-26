@@ -1,4 +1,3 @@
-import './App.css';
 import RadialCharts from './Containers/RadialChart.tsx/RadialCharts';
 
 function App() {
