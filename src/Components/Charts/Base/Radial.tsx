@@ -1,26 +1,24 @@
 import { useRef, useEffect } from 'react';
 import { Group } from '@visx/group';
-import { scaleOrdinal, scaleLog } from '@visx/scale';
+import { scaleOrdinal, scaleLog, scaleLinear } from '@visx/scale';
 import { AxisLeft } from '@visx/axis';
 import { GridRadial, GridAngle } from '@visx/grid';
 import { UslaborData } from '../../../Types/data';
 import { useMeasure } from "react-use";
 import { select } from 'd3'
-import { line, pointRadial } from 'd3-shape'
+import { curveBasisOpen, line, pointRadial } from 'd3-shape'
+import { LineRadial } from '@visx/shape';
 
 import styles from "./Radial.module.css"
 import { extentByDimension } from '../../../utils/extent';
-import { MONTHS } from '../../../Constants/constants';
+import { MONTHS, MONTHS_IN_RADS } from '../../../Constants/constants';
 import { CHART_PADDING } from './constants';
-import { pathSegments } from '../../../utils/pathSegments';
+import { segmentPaths } from '../../../utils/segmentPaths';
 import { grey, linePathGradient, strokeColor } from '../../../Constants/Colors';
-import Text from '@visx/text/lib/Text';
+import RadialLabels from './RadialLabels';
 
 const date = ({ Month = '' }: Partial<UslaborData>) => Month.split(' ')[0];
-
-const monthInRadians = Math.PI * 2 / 12;
-const circularDomain = Array(12).fill(0).map((_d, index) => (index) * monthInRadians);
-
+const circularDomain = Array(12).fill(0).map((_d, index) => (index) * MONTHS_IN_RADS);
 
 export type LineRadialProps = {
   dimensionName: string;
@@ -32,17 +30,17 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
   const [ref, { width, height }] = useMeasure<HTMLDivElement>();
   const lineRef = useRef<SVGPathElement>(null);
 
-  const yAccessor = accessor ?? ((datum: UslaborData) => datum[dimensionName])
+  // for random colors
+  const index = Math.floor(Math.random() * 3)
 
-  const firstPoint = data[0];
-  const lastPoint = data[data.length - 1];
+  const yAccessor = accessor ?? ((datum: UslaborData) => datum[dimensionName])
 
   const xScale = scaleOrdinal({
     range: circularDomain,
     domain: MONTHS,
   });
 
-  const yScale = scaleLog<number>({
+  const yScale = scaleLinear<number>({
     domain: extentByDimension(data, yAccessor),
   });
 
@@ -52,7 +50,9 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
   // Update scale output to match component dimensions
   yScale.range([0, height / 2 - CHART_PADDING]);
   const reverseYScale = yScale.copy().range(yScale.range().reverse());
-  console.log(yScale.range())
+
+  // Add gradient to path 
+  // https://www.npmjs.com/package/gradient-path
   useEffect(() => {
     if (lineRef.current && width > 100 && height > 100) {
 
@@ -62,13 +62,30 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
 
       select(lineRef.current)
         .selectAll('path')
-        .data(pathSegments(data, angle, radius))
+        .data(segmentPaths(data, angle, radius))
         .enter()
         .append('path')
-        .attr('fill', d => linePathGradient(d.progress))
+        .attr('fill', (d, i, arry) => {
+          return (i !== 0 && i <= arry.length - 3) ? linePathGradient[index](d.progress) : "none"
+        })
+        .attr('stroke', (d, i, arry) => {
+          return (i !== 0 && i <= arry.length - 3) ? linePathGradient[index](d.progress) : "none"
+        })
+        // .attr('fill', (d, i, arry) => linePathGradient(d.progress))
         .attr('d', d => lineFunc(d.samples));
     }
   }, [data, width, height, lineRef])
+
+  const firstPoint = data[0];
+  const lastPoint = data[data.length - 10];
+
+  // const dataByYear = data.reduce((acc, curr) => {
+  //   const year = curr.Month.split(" ")[1]
+  //   if (!acc[year]) acc[year] = []
+  //   acc[year].push(curr)
+  //   console.log(year, curr.Month)
+  //   return acc;
+  // }, {} as { [key: string]: UslaborData[] })
 
   return (
     <div className={styles.grid_wrapper}>
@@ -76,7 +93,6 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
       <div className={styles.chart} ref={ref}>
         <div >
           <svg width={width} height={height}>
-            {/* <rect width={width} height={height} fill={background} rx={14} /> */}
             <Group top={height / 2} left={width / 2}>
               <GridRadial
                 scale={yScale}
@@ -107,11 +123,7 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
                 hideAxisLine
               />
 
-              {/* {[firstPoint, lastPoint].map((d) => {
-            const cx = ((angle(d)) * Math.PI) / 180;
-            const cy = -(yScale(yAccessor(d)) ?? 0);
-            return <circle key={`line-cap-${d.Month}`} cx={cx} cy={cy} fill={darkgreen} r={3} />;
-          })} */}
+              <g ref={lineRef} />
 
               <GridAngle
                 scale={xScale}
@@ -121,18 +133,7 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
                 strokeOpacity={0.3}
                 numTicks={10}
               />
-              <g ref={lineRef} />
-              {/* {MONTHS.map((d, index) => {
-                const [x, y] = pointRadial(xScale(d) + (monthInRadians / 2), yScale.range()[1])
-
-                return <g key={d} transform={`translate(${x},${y})`}>
-                  <g transform={`rotate(${((xScale(d)) * 180 / Math.PI - 90)})translate${yScale.range()[1]}`}><g transform={(xScale(d) + Math.PI / 2) % (2 * Math.PI) < Math.PI
-                    ? "rotate(90) translate(0,25)"
-                    : "rotate(-90) translate(0,-9)"}></g>
-                    <Text textAnchor="middle">{d}</Text>
-                  </g>
-                </g>
-              })} */}
+              <RadialLabels xScale={xScale} yScale={yScale} />
             </Group>
           </svg>
         </div>

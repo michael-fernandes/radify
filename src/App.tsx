@@ -2,7 +2,7 @@ import RadialCharts from './Containers/RadialChart.tsx/RadialCharts';
 
 function App() {
   return (
-    <div className="App">
+    <div className={styles.app}>
       <h1>Radify</h1>
       <RadialCharts />
     </div>
