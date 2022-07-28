@@ -1,13 +1,13 @@
 .grid_wrapper:first-child {
   grid-column: 1 / 1;
   grid-row: 1 / 1;
-  padding: 5px;
+  width: 100%;
+
 }
 
 .chart_title {
   font-weight: 500;
   color: grey;
-  margin: 5px;
 }
 
 .chart {
@@ -16,4 +16,12 @@
   overflow: hidden;
 
   aspect-ratio: 1;
+}
+
+.svg {
+  margin: auto;
+}
+
+.grid_radial {
+  font-size: 10;
 }

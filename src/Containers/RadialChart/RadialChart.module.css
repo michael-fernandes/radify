@@ -4,12 +4,12 @@
 
 .grid {
 
-  margin: 10px auto 10px auto;
+  margin: 20px auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  
-  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+  grid-gap: 2.5rem;
   max-height: 80vh;
+  max-width: 95%;
 }
 
 .grid::before {
@@ -21,8 +21,8 @@
 }
 
 hr {
-  background-color: #00000033;
+  background-color: #00000015;
   border: 0;
-  height: 2px;
+  height: 1.5px;
   margin: 50px auto;
 }

@@ -29,8 +29,7 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
   const [ref, { width, height }] = useMeasure<HTMLDivElement>();
   const lineRef = useRef<SVGPathElement>(null);
 
-  // for random colors
-  const index = Math.floor(Math.random() * 2)
+  const paddedWidth = width - 20;
 
   const yAccessor = accessor ?? ((datum: UslaborData) => datum[dimensionName])
 
@@ -47,43 +46,18 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
   const angle = (d: UslaborData) => xScale(date(d)) ?? 0;
 
   // Update scale output to match component dimensions
-  yScale.range([0, height / 2 - CHART_PADDING]);
+  yScale.range([0, paddedWidth / 2 - CHART_PADDING]);
   const reverseYScale = yScale.copy().range(yScale.range().reverse());
-
-  // Add gradient to path 
-  // https://www.npmjs.com/package/gradient-path
-  useEffect(() => {
-    if (lineRef.current && width > 100 && height > 100) {
-
-      const lineFunc = line<any>()
-        .x(d => d.x)
-        .y(d => d.y);
-
-      select(lineRef.current)
-        .selectAll('path')
-        .data(segmentPaths(data, angle, radius))
-        .enter()
-        .append('path')
-        .attr('fill', (d, i, arry) => {
-          return (i !== 0 && i <= arry.length - 3) ? linePathGradient[index](d.progress) : "none"
-        })
-        // .attr('stroke', (d, i, arry) => {
-        //   return (i !== 0 && i <= arry.length - 3) ? linePathGradient[index](d.progress) : "none"
-        // })
-        // .attr('fill', (d, i, arry) => linePathGradient(d.progress))
-        .attr('d', d => lineFunc(d.samples));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, width, height, lineRef])
 
   return (
     <div className={styles.grid_wrapper}>
       <h3 className={styles.chart_title}>{dimensionName}</h3>
       <div className={styles.chart} ref={ref}>
         <div >
-          <svg width={width} height={height}>
-            <Group top={height / 2} left={width / 2}>
+          <svg className={styles.svg} width={paddedWidth} height={height}>
+            <Group top={height / 2} left={paddedWidth / 2}>
               <GridRadial
+                className={styles.gridRadial}
                 scale={yScale}
                 numTicks={6}
                 stroke={grey}

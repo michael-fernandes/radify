@@ -1,4 +1,8 @@
 .app {
   max-width: 1400px;
   margin: auto;
+  padding: 10px;
+
+  overflow-x: hidden;
+  width: 100%;
 }
