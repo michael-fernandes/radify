@@ -17,8 +17,19 @@ const cpiData = _stlsfed.map((d: any) => {
 }).sort(dateSort)
 
 const uslaborData = interpolate(_usLaborData)
-const uslaborDataDataKeys = Object.keys(uslaborData[0]).filter(key => key !== "Month")
-
+const commodities = [
+  "Bananas per lb",
+  // "Oranges-Navel per lb",
+  "White Bread per lb",
+  // "Tomatoes per lb",
+  // "Whole Chicken per lb.",
+  "Electricity kWh",
+  "Eggs(grade A) per doz.",
+  "Gasoline per gallon",
+  "Ground beef per lb",
+  "Utility (piped) gas per therm",
+  "Milk, fresh per gal",
+];
 const RadialCharts = () => {
   return (
     <div className={styles.container}>
@@ -29,8 +40,7 @@ const RadialCharts = () => {
       <hr className={styles.hr} />
       <div className={styles.grid}>
         {/* <Radial key="White Bread per lb" dimensionName="White Bread per lb" data={uslaborData} /> */}
-
-        {uslaborDataDataKeys.map(dataKey => <Radial key={dataKey} data={uslaborData} dimensionName={dataKey} />)}
+        {commodities.map(commodity => <Radial key={commodity} data={uslaborData} dimensionName={commodity} />)}
       </div>
     </div>
   );
