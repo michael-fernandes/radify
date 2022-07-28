@@ -1,20 +1,17 @@
-import { useRef, useEffect } from 'react';
 import { Group } from '@visx/group';
 import { scaleOrdinal, scaleLinear } from '@visx/scale';
 import { AxisLeft } from '@visx/axis';
 import { GridRadial, GridAngle } from '@visx/grid';
 import { UslaborData } from '../../../Types/data';
 import { useMeasure } from "react-use";
-import { select } from 'd3'
-import { line } from 'd3-shape'
 
 import styles from "./Radial.module.css"
 import { extentByDimension } from '../../../utils/extent';
 import { MONTHS, MONTHS_IN_RADS } from '../../../Constants/constants';
 import { CHART_PADDING } from './constants';
-import { segmentPaths } from '../../../utils/segmentPaths';
-import { grey, linePathGradient, strokeColor } from '../../../Constants/Colors';
+import { grey, strokeColor } from '../../../Constants/Colors';
 import RadialLabels from './RadialLabels';
+import GradientPathLine from './GradientPathLine';
 
 const date = ({ Month = '' }: Partial<UslaborData>) => Month.split(' ')[0];
 const circularDomain = Array(12).fill(0).map((_d, index) => (index) * MONTHS_IN_RADS);
@@ -27,8 +24,6 @@ export type LineRadialProps = {
 
 function Radial({ dimensionName, accessor, data }: LineRadialProps) {
   const [ref, { width, height }] = useMeasure<HTMLDivElement>();
-  const lineRef = useRef<SVGPathElement>(null);
-
   const paddedWidth = width - 20;
 
   const yAccessor = accessor ?? ((datum: UslaborData) => datum[dimensionName])
@@ -85,8 +80,7 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
                 tickFormat={(d) => String(d)}
                 hideAxisLine
               />
-
-              <g ref={lineRef} />
+              <GradientPathLine angle={angle} radius={radius} data={data} width={paddedWidth} height={height} />
 
               <GridAngle
                 scale={xScale}
