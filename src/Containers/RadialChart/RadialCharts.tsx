@@ -1,3 +1,4 @@
+import { style } from 'd3-selection';
 import Radial from '../../Components/Charts/Base/Radial';
 import { dateSort } from '../../utils/dateHelpers';
 import { interpolate } from '../../utils/interpolate';
@@ -39,8 +40,8 @@ const RadialCharts = ({ pathType }: Props) => {
   return (
     <section className={styles.container}>
 
-      <div className={styles.grid}>
-        <Radial title="Consumer Price Index (% change YoY)" key="CPI all items" dimensionName="CPI all items" data={cpiData} pathType={pathType} />
+      <div className={styles.hero}>
+        <Radial presentation="hero" title="Consumer Price Index (% change YoY)" key="CPI all items" dimensionName="CPI all items" data={cpiData} pathType={pathType} />
       </div>
       <hr className={styles.hr} />
       <div className={styles.grid}>

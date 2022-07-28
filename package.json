@@ -83,9 +83,10 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
-    "deploy": "yarn run build && gcloud app deploy && gcloud app browse",
-    "start": "node scripts/start.js",
+    "deploy:browse": "yarn deploy && gcloud app browse",
+    "deploy": "yarn run build && gcloud app deploy",
     "build": "node scripts/build.js",
+    "start": "node scripts/start.js",
     "test": "node scripts/test.js"
   },
   "eslintConfig": {

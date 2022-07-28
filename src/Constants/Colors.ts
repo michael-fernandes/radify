@@ -1,4 +1,4 @@
-import { interpolateCool, interpolateViridis } from 'd3'
+import { interpolateCool } from 'd3'
 
 // export const linePathGradient = interpolateRgb.gamma(2.2)("blue", "red");
 // export const linePathGradient = interpolateViridis

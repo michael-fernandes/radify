@@ -11,10 +11,10 @@ import { MONTHS, MONTHS_IN_RADS } from '../../../Constants/constants';
 import { CHART_PADDING } from './constants';
 import { grey, strokeColor } from '../../../Constants/Colors';
 
-import RadialLabels from './RadialLabels';
-import GradientPathLine from './GradientPathLine';
-import "./overrides.css"
-import AnimatedPathLine from '../../AnimatedPathLine';
+import RadialLabels from '../Labels/RadialLabels';
+import GradientPathLine from '../Lines/GradientPathLine';
+import "../overrides.css"
+import AnimatedPathLine from '../Lines/AnimatedPathLine';
 import { useState } from 'react';
 
 const date = ({ Month = '' }: Partial<UslaborData>) => Month.split(' ')[0];
@@ -25,10 +25,11 @@ export type LineRadialProps = {
   data: UslaborData[];
   dimensionName: string;
   pathType: string,
-  title?: string
+  title?: string,
+  presentation?: string
 };
 
-function Radial({ dimensionName, accessor, data, pathType, title }: LineRadialProps) {
+function Radial({ dimensionName, accessor, data, pathType, title, presentation = "single" }: LineRadialProps) {
   const [ref, { width, height }] = useMeasure<HTMLDivElement>();
   const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
 

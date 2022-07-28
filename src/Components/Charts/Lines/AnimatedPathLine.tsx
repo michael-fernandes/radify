@@ -4,9 +4,8 @@ import { animated } from '@react-spring/web';
 import { LineRadial } from "@visx/shape";
 import { curveBasisOpen } from "d3";
 import { useEffect, useRef, useState } from "react";
-import { blue, darkbackground, green, grey } from "../Constants/Colors";
-import { UslaborData } from "../Types/data";
-import { LinearGradient, RadialGradient } from '@visx/gradient';
+import { UslaborData } from "../../../Types/data";
+import { RadialGradient } from '@visx/gradient';
 
 const springConfig = {
   tension: 20,
@@ -57,15 +56,18 @@ const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShould
                 fill="none"
                 stroke={!shouldAnimate ? 'url(#line-gradient)' : 'none'} />
               {shouldAnimate && (
-                <animated.path
-                  d={d}
-                  strokeWidth={3}
-                  strokeOpacity={0.8}
-                  strokeLinecap="round"
-                  fill="none"
-                  stroke="url(#line-gradient)"
-                  strokeDashoffset={spring.frame.interpolate((v) => v * lineLength)}
-                  strokeDasharray={lineLength} />
+                <>
+                  <animated.path
+                    d={d}
+                    strokeWidth={3}
+                    strokeOpacity={0.8}
+                    strokeLinecap="round"
+                    fill="none"
+                    stroke="url(#line-gradient)"
+                    strokeDashoffset={spring.frame.interpolate((v) => v * lineLength)}
+                    strokeDasharray={lineLength} />
+                  <animated.text>Name</animated.text>
+                </>
               )}
             </>
           );
