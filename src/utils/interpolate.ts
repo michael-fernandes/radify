@@ -14,8 +14,6 @@ export const interpolate = (data: any[]): any[]  => {
 
     return [...acc, current]
   }, []);
-
-  const lastPlusOne = interpolated[interpolated.length -1]
   
   return [
     interpolated[0],

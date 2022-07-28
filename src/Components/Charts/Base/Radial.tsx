@@ -1,13 +1,12 @@
 import { useRef, useEffect } from 'react';
 import { Group } from '@visx/group';
-import { scaleOrdinal, scaleLog, scaleLinear } from '@visx/scale';
+import { scaleOrdinal, scaleLinear } from '@visx/scale';
 import { AxisLeft } from '@visx/axis';
 import { GridRadial, GridAngle } from '@visx/grid';
 import { UslaborData } from '../../../Types/data';
 import { useMeasure } from "react-use";
 import { select } from 'd3'
-import { curveBasisOpen, line, pointRadial } from 'd3-shape'
-import { LineRadial } from '@visx/shape';
+import { line } from 'd3-shape'
 
 import styles from "./Radial.module.css"
 import { extentByDimension } from '../../../utils/extent';
@@ -74,6 +73,7 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
         // .attr('fill', (d, i, arry) => linePathGradient(d.progress))
         .attr('d', d => lineFunc(d.samples));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, width, height, lineRef])
 
   return (

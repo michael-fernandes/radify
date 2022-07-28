@@ -1,5 +1,5 @@
-import RadialCharts from './Containers/RadialChart.tsx/RadialCharts';
 import styles from './App.module.css';
+import RadialCharts from './Containers/RadialChart/RadialCharts';
 
 function App() {
   return (
