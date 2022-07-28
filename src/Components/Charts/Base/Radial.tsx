@@ -12,6 +12,7 @@ import { CHART_PADDING } from './constants';
 import { grey, strokeColor } from '../../../Constants/Colors';
 import RadialLabels from './RadialLabels';
 import GradientPathLine from './GradientPathLine';
+import "./overrides.css"
 
 const date = ({ Month = '' }: Partial<UslaborData>) => Month.split(' ')[0];
 const circularDomain = Array(12).fill(0).map((_d, index) => (index) * MONTHS_IN_RADS);
@@ -51,16 +52,7 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
         <div >
           <svg className={styles.svg} width={paddedWidth} height={height}>
             <Group top={height / 2} left={paddedWidth / 2}>
-              <GridRadial
-                className={styles.gridRadial}
-                scale={yScale}
-                numTicks={6}
-                stroke={grey}
-                strokeWidth={1}
-                fill={grey}
-                fillOpacity={0.1}
-                strokeOpacity={0.2}
-              />
+
               <AxisLeft
                 top={-height / 2 + CHART_PADDING}
                 scale={reverseYScale}
@@ -81,7 +73,16 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
                 hideAxisLine
               />
               <GradientPathLine angle={angle} radius={radius} data={data} width={paddedWidth} height={height} />
-
+              <GridRadial
+                className={styles.gridRadial}
+                scale={yScale}
+                numTicks={6}
+                stroke={grey}
+                strokeWidth={1}
+                fill={grey}
+                fillOpacity={0.1}
+                strokeOpacity={0.2}
+              />
               <GridAngle
                 scale={xScale}
                 outerRadius={height / 2 - CHART_PADDING}

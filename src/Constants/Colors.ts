@@ -11,4 +11,4 @@ export const darkgreen = '#dff84d';
 export const background = 'grey';
 export const darkbackground = '#603FA8';
 export const strokeColor = '#744cca';
-export const grey = "#00000033"
+export const grey = "#00000050"
