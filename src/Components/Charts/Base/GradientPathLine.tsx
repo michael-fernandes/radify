@@ -18,7 +18,6 @@ const GradientPathLine = ({ width: paddedWidth, height, angle, radius, data }: P
   // https://www.npmjs.com/package/gradient-path
   useEffect(() => {
     if (lineRef.current && paddedWidth > 150 && height > 150) {
-
       const lineFunc = line<any>()
         .x(d => d.x)
         .y(d => d.y);
@@ -33,7 +32,6 @@ const GradientPathLine = ({ width: paddedWidth, height, angle, radius, data }: P
         })
         .attr('d', d => lineFunc(d.samples));
     }
-    console.log(paddedWidth)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, paddedWidth, height, lineRef])
 

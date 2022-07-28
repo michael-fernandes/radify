@@ -15,7 +15,7 @@ const RadialLabels = ({ xScale, yScale }: Props) => {
       const anchor = index < 6 ? "start" : "end"
       return (
         <g key={d} transform={`translate(${x},${y})`}>
-          <Text scaleToFit="shrink-only" width={25} fill={grey} textAnchor={anchor}>{d}</Text>
+          <Text style={{ userSelect: 'none' }} scaleToFit="shrink-only" width={25} fill={grey} textAnchor={anchor}>{d}</Text>
         </g>
       )
     })}

@@ -10,21 +10,28 @@ import { extentByDimension } from '../../../utils/extent';
 import { MONTHS, MONTHS_IN_RADS } from '../../../Constants/constants';
 import { CHART_PADDING } from './constants';
 import { grey, strokeColor } from '../../../Constants/Colors';
+
 import RadialLabels from './RadialLabels';
 import GradientPathLine from './GradientPathLine';
 import "./overrides.css"
+import AnimatedPathLine from '../../AnimatedPathLine';
+import { useState } from 'react';
 
 const date = ({ Month = '' }: Partial<UslaborData>) => Month.split(' ')[0];
 const circularDomain = Array(12).fill(0).map((_d, index) => (index) * MONTHS_IN_RADS);
 
 export type LineRadialProps = {
-  dimensionName: string;
   accessor?: any;
   data: UslaborData[];
+  dimensionName: string;
+  pathType: string,
+  title?: string
 };
 
-function Radial({ dimensionName, accessor, data }: LineRadialProps) {
+function Radial({ dimensionName, accessor, data, pathType, title }: LineRadialProps) {
   const [ref, { width, height }] = useMeasure<HTMLDivElement>();
+  const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
+
   const paddedWidth = width - 20;
 
   const yAccessor = accessor ?? ((datum: UslaborData) => datum[dimensionName])
@@ -38,19 +45,19 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
     domain: extentByDimension(data, yAccessor),
   });
 
-  const radius = (d: UslaborData) => yScale(yAccessor(d)) ?? 0;
-  const angle = (d: UslaborData) => xScale(date(d)) ?? 0;
-
   // Update scale output to match component dimensions
   yScale.range([0, paddedWidth / 2 - CHART_PADDING]);
   const reverseYScale = yScale.copy().range(yScale.range().reverse());
 
+  const radius = (d: UslaborData) => yScale(yAccessor(d)) ?? 0;
+  const angle = (d: UslaborData) => xScale(date(d)) ?? 0;
+
   return (
     <div className={styles.grid_wrapper}>
-      <h3 className={styles.chart_title}>{dimensionName}</h3>
+      <h3 className={styles.chart_title}>{title ?? dimensionName}</h3>
       <div className={styles.chart} ref={ref}>
         <div >
-          <svg className={styles.svg} width={paddedWidth} height={height}>
+          <svg className={styles.svg} width={paddedWidth} height={height} onClick={() => setShouldAnimate(!shouldAnimate)}>
             <Group top={height / 2} left={paddedWidth / 2}>
 
               <AxisLeft
@@ -72,7 +79,21 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
                 tickFormat={(d) => String(d)}
                 hideAxisLine
               />
-              <GradientPathLine angle={angle} radius={radius} data={data} width={paddedWidth} height={height} />
+              {pathType === "Linear"
+                ? <GradientPathLine
+                  angle={angle}
+                  radius={radius}
+                  data={data}
+                  width={paddedWidth}
+                  height={height} />
+                : < AnimatedPathLine
+                  setShouldAnimate={setShouldAnimate}
+                  shouldAnimate={shouldAnimate}
+                  angle={angle}
+                  radius={radius}
+                  data={data}
+                  width={width} />
+              }
               <GridRadial
                 className={styles.gridRadial}
                 scale={yScale}

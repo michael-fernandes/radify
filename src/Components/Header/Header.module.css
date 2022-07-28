@@ -1,0 +1,29 @@
+.header {
+  margin-top: 5vh;
+  margin-bottom: 7.5vh;
+}
+
+.title {
+  color: rgb(96, 96, 96);
+}
+
+.header_content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.intro {
+  font-size: 1.2rem;
+  color:grey;
+  max-width: 600px;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+}
+
+.control > * {
+  padding-bottom: 10px;
+}

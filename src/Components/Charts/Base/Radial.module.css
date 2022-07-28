@@ -6,8 +6,9 @@
 }
 
 .chart_title {
+  color: rgb(96, 96, 96);
   font-weight: 500;
-  color: grey;
+  margin-bottom: 2.5px;
 }
 
 .chart {

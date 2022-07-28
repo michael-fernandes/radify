@@ -30,19 +30,23 @@ const commodities = [
   "Utility (piped) gas per therm",
   "Milk, fresh per gal",
 ];
-const RadialCharts = () => {
+
+interface Props {
+  pathType: string,
+}
+
+const RadialCharts = ({ pathType }: Props) => {
   return (
-    <div className={styles.container}>
+    <section className={styles.container}>
 
       <div className={styles.grid}>
-        <Radial key="CPI all items" dimensionName="CPI all items" data={cpiData} />
+        <Radial title="Consumer Price Index (% change YoY)" key="CPI all items" dimensionName="CPI all items" data={cpiData} pathType={pathType} />
       </div>
       <hr className={styles.hr} />
       <div className={styles.grid}>
-        {/* <Radial key="White Bread per lb" dimensionName="White Bread per lb" data={uslaborData} /> */}
-        {commodities.map(commodity => <Radial key={commodity} data={uslaborData} dimensionName={commodity} />)}
+        {commodities.map(commodity => <Radial key={commodity} data={uslaborData} dimensionName={commodity} pathType={pathType} />)}
       </div>
-    </div>
+    </section>
   );
 };
 
