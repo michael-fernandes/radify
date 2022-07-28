@@ -1,5 +1,6 @@
 import Text from '@visx/text/lib/Text';
 import { pointRadial, ScaleLinear, ScaleOrdinal } from 'd3';
+import { grey } from '../../../Constants/Colors';
 import { MONTHS, MONTHS_IN_RADS } from '../../../Constants/constants';
 
 interface Props {
@@ -14,7 +15,7 @@ const RadialLabels = ({ xScale, yScale }: Props) => {
       const anchor = index < 6 ? "start" : "end"
       return (
         <g key={d} transform={`translate(${x},${y})`}>
-          <Text textAnchor={anchor}>{d}</Text>
+          <Text fill={grey} textAnchor={anchor}>{d}</Text>
         </g>
       )
     })}

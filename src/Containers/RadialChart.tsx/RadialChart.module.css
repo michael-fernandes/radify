@@ -6,12 +6,10 @@
 
   margin: 10px auto 10px auto;
   display: grid;
-  /* grid-template-columns: repeat(3, minmax(100, 1fr)); */
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   
-  grid-gap: 1rem;
-  max-height: 100vh;
-  /* grid-template-rows: 1fr 1fr 1fr; */
+  grid-gap: 1.5rem;
+  max-height: 80vh;
 }
 
 .grid::before {

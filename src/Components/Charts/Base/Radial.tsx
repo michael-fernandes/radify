@@ -31,7 +31,7 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
   const lineRef = useRef<SVGPathElement>(null);
 
   // for random colors
-  const index = Math.floor(Math.random() * 3)
+  const index = Math.floor(Math.random() * 2)
 
   const yAccessor = accessor ?? ((datum: UslaborData) => datum[dimensionName])
 
@@ -68,24 +68,13 @@ function Radial({ dimensionName, accessor, data }: LineRadialProps) {
         .attr('fill', (d, i, arry) => {
           return (i !== 0 && i <= arry.length - 3) ? linePathGradient[index](d.progress) : "none"
         })
-        .attr('stroke', (d, i, arry) => {
-          return (i !== 0 && i <= arry.length - 3) ? linePathGradient[index](d.progress) : "none"
-        })
+        // .attr('stroke', (d, i, arry) => {
+        //   return (i !== 0 && i <= arry.length - 3) ? linePathGradient[index](d.progress) : "none"
+        // })
         // .attr('fill', (d, i, arry) => linePathGradient(d.progress))
         .attr('d', d => lineFunc(d.samples));
     }
   }, [data, width, height, lineRef])
-
-  const firstPoint = data[0];
-  const lastPoint = data[data.length - 10];
-
-  // const dataByYear = data.reduce((acc, curr) => {
-  //   const year = curr.Month.split(" ")[1]
-  //   if (!acc[year]) acc[year] = []
-  //   acc[year].push(curr)
-  //   console.log(year, curr.Month)
-  //   return acc;
-  // }, {} as { [key: string]: UslaborData[] })
 
   return (
     <div className={styles.grid_wrapper}>
