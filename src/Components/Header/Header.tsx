@@ -23,7 +23,7 @@ const Header = ({ pathType, setPathType }: Props) => {
         {CONTENT.intro}
       </p>
       <div className={styles.control}>
-        <span>
+        <span className={styles.control_label}>
           Gradient Type:
         </span>
         <ToggleButtonGroup
@@ -36,7 +36,7 @@ const Header = ({ pathType, setPathType }: Props) => {
           <ToggleButton value="Radial">Radial</ToggleButton>
           <ToggleButton value="Linear">Linear</ToggleButton>
         </ToggleButtonGroup>
-        {pathType === "Linear" && <p>Warning - Missing Data: This setting does not render the first and last point.</p>}
+        {pathType === "Linear" && <p className={styles.warning}>Warning - missing data: There is a slight implementation hurtle that is causing a few points not to render, stay tuned.</p>}
       </div>
     </header>
   );
