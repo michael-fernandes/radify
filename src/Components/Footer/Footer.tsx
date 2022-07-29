@@ -3,11 +3,11 @@ import styles from './Footer.module.css'
 
 const Footer = () => {
   return (
-    <section>
+    <footer>
       <div className={styles.made_by}>
         {CONTENT.madeBy}
       </div>
-    </section >
+    </footer>
   );
 };
 

@@ -1,4 +1,8 @@
 .made_by {
   justify-content: center;
   font-size: 0.9rem;
+  font-style: italic;
+  text-align: center;
+  color: rgb(96, 96, 96);
+  margin-bottom: 40px;
 }
