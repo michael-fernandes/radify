@@ -39,8 +39,7 @@ interface Props {
 const RadialCharts = ({ pathType }: Props) => {
   return (
     <section className={styles.container}>
-
-      <div className={styles.hero}>
+      <div className={styles.grid}>
         <Radial presentation="hero" title="Consumer Price Index (% change YoY)" key="CPI all items" dimensionName="CPI all items" data={cpiData} pathType={pathType} />
       </div>
       <hr className={styles.hr} />

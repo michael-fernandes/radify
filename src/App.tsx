@@ -8,11 +8,12 @@ function App() {
   const [pathType, setPathType] = useState("Radial")
 
   return (
-    <div className={styles.app}>
+    <><div className={styles.app}>
       <Header pathType={pathType} setPathType={setPathType} />
       <RadialCharts pathType={pathType} />
-      <Footer />
-    </div>
+    </div><Footer />
+    </>
+
   );
 }
 

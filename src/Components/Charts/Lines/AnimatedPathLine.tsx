@@ -2,7 +2,7 @@ import { useSpring } from '@react-spring/core';
 import { animated } from '@react-spring/web';
 
 import { LineRadial } from "@visx/shape";
-import { curveBasisOpen } from "d3";
+import { curveBasisOpen, select, transition } from "d3";
 import { useEffect, useRef, useState } from "react";
 import { UslaborData } from "../../../Types/data";
 import { RadialGradient } from '@visx/gradient';
@@ -10,7 +10,6 @@ import { RadialGradient } from '@visx/gradient';
 const springConfig = {
   tension: 20,
 };
-
 
 interface Props {
   angle: (d: UslaborData) => number,
@@ -23,7 +22,7 @@ interface Props {
 
 const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShouldAnimate }: Props) => {
   const lineRef = useRef<SVGPathElement>(null);
-  const animate = true;
+
   // const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
   const [lineLength, setLineLength] = useState<number>(0);
 
@@ -39,6 +38,7 @@ const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShould
     }
   }, [lineRef, width]);
 
+
   return (
     <>
       <RadialGradient from={"orange"} to={"purple"} id="line-gradient" />
@@ -47,6 +47,9 @@ const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShould
           const d = path(data) || '';
           return (
             <>
+              <g>
+
+              </g>
               <animated.path
                 d={d}
                 ref={lineRef}
@@ -66,7 +69,6 @@ const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShould
                     stroke="url(#line-gradient)"
                     strokeDashoffset={spring.frame.interpolate((v) => v * lineLength)}
                     strokeDasharray={lineLength} />
-                  <animated.text>Name</animated.text>
                 </>
               )}
             </>

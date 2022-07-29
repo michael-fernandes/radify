@@ -22,8 +22,14 @@
 .control {
   display: flex;
   flex-direction: column;
+  font-weight: 500;
 }
 
-.control > * {
-  padding-bottom: 10px;
+.control_label {
+  padding-bottom: 5px;
+}
+
+.control > .warning {
+  font-style: italic;
+  color: orchid;
 }
