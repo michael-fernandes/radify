@@ -1,19 +1,25 @@
 import styles from './Header.module.css'
 import { CONTENT } from '../../Constants/constants';
 import { ToggleButtonGroup, ToggleButton } from '@mui/material';
-import { useState } from 'react';
+import ReactGA from 'react-ga';
 
 interface Props {
   pathType: string,
   setPathType: (t: string) => void
 }
-const Header = ({ pathType, setPathType }: Props) => {
+const Header = ({ pathType: gradientType, setPathType: setGradientType }: Props) => {
 
   const handleChange = (
     _event: React.MouseEvent<HTMLElement>,
     newPathType: string,
   ) => {
-    setPathType(newPathType);
+    ReactGA.event({
+      category: "setting",
+      action: "change",
+      label: newPathType
+    });
+
+    setGradientType(newPathType);
   };
 
   return (
@@ -28,7 +34,7 @@ const Header = ({ pathType, setPathType }: Props) => {
         </span>
         <ToggleButtonGroup
           color="primary"
-          value={pathType}
+          value={gradientType}
           exclusive
           onChange={handleChange}
           size="small"
@@ -36,7 +42,7 @@ const Header = ({ pathType, setPathType }: Props) => {
           <ToggleButton value="Radial">Radial</ToggleButton>
           <ToggleButton value="Linear">Linear</ToggleButton>
         </ToggleButtonGroup>
-        {pathType === "Linear" && <p className={styles.warning}>Warning - missing data: There is a slight implementation hurtle that is causing a few points not to render, stay tuned.</p>}
+        {gradientType === "Linear" && <p className={styles.warning}>Warning - missing data: There is a slight implementation hurtle that is causing a few points not to render, stay tuned.</p>}
       </div>
     </header>
   );
