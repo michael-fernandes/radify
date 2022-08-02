@@ -1,4 +1,4 @@
-import { useSpring } from '@react-spring/core';
+import { easings, useSpring } from '@react-spring/core';
 import { animated } from '@react-spring/web';
 
 import { LineRadial } from "@visx/shape";
@@ -8,7 +8,8 @@ import { UslaborData } from "../../../Types/data";
 import { RadialGradient } from '@visx/gradient';
 
 const springConfig = {
-  tension: 20,
+  duration: 2000,
+  easing: easings.easeInOutSine,
 };
 
 interface Props {

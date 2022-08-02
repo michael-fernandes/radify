@@ -7,18 +7,19 @@ import { useMeasure } from "react-use";
 
 import styles from "./Radial.module.css"
 import { extentByDimension } from '../../../utils/extent';
-import { MONTHS, MONTHS_IN_RADS } from '../../../Constants/constants';
+import { MONTHS, ONE_MONTH_RADIAN } from '../../../Constants/constants';
 import { CHART_PADDING } from './constants';
-import { grey, strokeColor } from '../../../Constants/Colors';
+import { darkgreen, grey, strokeColor } from '../../../Constants/Colors';
 
 import RadialLabels from '../Labels/RadialLabels';
 import GradientPathLine from '../Lines/GradientPathLine';
 import "../overrides.css"
 import AnimatedPathLine from '../Lines/AnimatedPathLine';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { pointRadial } from 'd3';
 
 const date = ({ Month = '' }: Partial<UslaborData>) => Month.split(' ')[0];
-const circularDomain = Array(12).fill(0).map((_d, index) => (index) * MONTHS_IN_RADS);
+const circularDomain = Array(12).fill(0).map((_d, index) => (index) * ONE_MONTH_RADIAN);
 
 export type LineRadialProps = {
   accessor?: any;
@@ -53,16 +54,26 @@ function Radial({ dimensionName, accessor, data, pathType, title, presentation =
   const radius = (d: UslaborData) => yScale(yAccessor(d)) ?? 0;
   const angle = (d: UslaborData) => xScale(date(d)) ?? 0;
 
+  // const firstPoint = data[0];
+  // const lastPoint = data[data.length - 1];
+
+  const radiusLen = height / 2
+  const outerRadiusLen = radiusLen - CHART_PADDING
+
+  useEffect(() => {
+    setShouldAnimate(true)
+  }, [])
+
   return (
     <div className={styles.grid_wrapper}>
       <h3 className={styles.chart_title}>{title ?? dimensionName}</h3>
       <div className={styles.chart} ref={ref}>
         <div >
           <svg className={styles.svg} width={paddedWidth} height={height} onClick={() => setShouldAnimate(!shouldAnimate)}>
-            <Group top={height / 2} left={paddedWidth / 2}>
+            <Group top={radiusLen} left={paddedWidth / 2}>
 
               <AxisLeft
-                top={-height / 2 + CHART_PADDING}
+                top={-outerRadiusLen}
                 scale={reverseYScale}
                 numTicks={5}
                 tickStroke="none"
@@ -107,12 +118,16 @@ function Radial({ dimensionName, accessor, data, pathType, title, presentation =
               />
               <GridAngle
                 scale={xScale}
-                outerRadius={height / 2 - CHART_PADDING}
+                outerRadius={outerRadiusLen}
                 stroke={grey}
                 strokeWidth={1}
                 strokeOpacity={0.3}
                 numTicks={10}
               />
+              {/* {[firstPoint, lastPoint].map((d, i) => {
+                const [x, y] = pointRadial(angle(d), radius(d));
+                return <circle key={`line-cap-${i}`} cx={x} cy={y} fill={darkgreen} r={3} />;
+              })} */}
               <RadialLabels xScale={xScale} yScale={yScale} />
             </Group>
           </svg>
