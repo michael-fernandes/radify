@@ -17,10 +17,12 @@ function App() {
   }, [])
 
   return (
-    <><div className={styles.app}>
-      <Header pathType={pathType} setPathType={setPathType} />
-      <RadialCharts pathType={pathType} />
-    </div><Footer />
+    <>
+      <div className={styles.app}>
+        <Header pathType={pathType} setPathType={setPathType} />
+        <RadialCharts pathType={pathType} />
+        <Footer />
+      </div>
     </>
 
   );

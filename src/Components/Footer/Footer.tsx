@@ -1,11 +1,10 @@
-import { CONTENT } from '../../Constants/constants';
 import styles from './Footer.module.css'
 
 const Footer = () => {
   return (
     <footer>
       <div className={styles.made_by}>
-        {CONTENT.madeBy}
+        Made by <a href="linkedin.com/in/mike-fernandes/">Michael Fernandes</a> in Jul 2022, using React, VisX and D3.js
       </div>
     </footer>
   );

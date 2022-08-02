@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 2.5rem;
-  max-height: 80vh;
+  /* max-height: 80vh; */
   max-width: 95%;
 }
 
