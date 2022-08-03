@@ -1,4 +1,3 @@
-import { style } from 'd3-selection';
 import Radial from '../../Components/Charts/Base/Radial';
 import { dateSort } from '../../utils/dateHelpers';
 import { interpolate } from '../../utils/interpolate';
@@ -19,17 +18,17 @@ const cpiData = _stlsfed.map((d: any) => {
 
 const uslaborData = interpolate(_usLaborData)
 const commodities = [
-  "Bananas per lb",
-  // "Oranges-Navel per lb",
-  "White Bread per lb",
-  // "Tomatoes per lb",
-  // "Whole Chicken per lb.",
-  "Electricity kWh",
-  "Eggs(grade A) per doz.",
-  "Gasoline per gallon",
-  "Ground beef per lb",
-  "Utility (piped) gas per therm",
-  "Milk, fresh per gal",
+  "Bananas ($ / lb)",
+  "Oranges-Navel ($ / lb)",
+  "White Bread ($ / lb)",
+  "Tomatoes ($ / lb)",
+  "Whole Chicken ($ / lb)",
+  "Electricity ($ / kWh)",
+  "Eggs(grade A) ($ / doz)",
+  "Gasoline ($ / gallon)",
+  "Ground beef ($ / lb)",
+  "Utility (piped) gas ($ / therm)",
+  "Milk, fresh ($ / gal)"
 ];
 
 interface Props {

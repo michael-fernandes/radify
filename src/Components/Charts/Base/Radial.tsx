@@ -9,14 +9,13 @@ import styles from "./Radial.module.css"
 import { extentByDimension } from '../../../utils/extent';
 import { MONTHS, ONE_MONTH_RADIAN } from '../../../Constants/constants';
 import { CHART_PADDING } from './constants';
-import { darkgreen, grey, strokeColor } from '../../../Constants/Colors';
+import { grey, strokeColor } from '../../../Constants/Colors';
 
 import RadialLabels from '../Labels/RadialLabels';
 import GradientPathLine from '../Lines/GradientPathLine';
 import "../overrides.css"
 import AnimatedPathLine from '../Lines/AnimatedPathLine';
 import { useEffect, useState } from 'react';
-import { pointRadial } from 'd3';
 
 const date = ({ Month = '' }: Partial<UslaborData>) => Month.split(' ')[0];
 const circularDomain = Array(12).fill(0).map((_d, index) => (index) * ONE_MONTH_RADIAN);
