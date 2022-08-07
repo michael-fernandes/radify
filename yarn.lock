@@ -5723,13 +5723,12 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.4, 
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.10.tgz#147d3a006da4ca3ce14728c7aefc287c367d7a6c"
   integrity sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==
 
-gradient-path-typescript@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/gradient-path-typescript/-/gradient-path-typescript-2.3.1.tgz#4215f8589ae769321eaee38930726d671e6c9f56"
-  integrity sha512-1yHz0VQOgMk9asbb4Anve6wUrx5k/I1XspXxBBotyE4lBGtfV49Rnl/4c+kPZyZ1+S+OfnRiwBQowqhQqimmcQ==
+gradient-path@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/gradient-path/-/gradient-path-2.3.0.tgz#e70b8b962983ab944b9abbe030c2ce242ee811b9"
+  integrity sha512-vZdF/Z0EpqUztzWXFjFC16lqcialHacYoRonslk/bC6CuujkuIrqx7etlzdYHY4SnUU94LRWESamZKfkGh7yYQ==
   dependencies:
-    tinygradient "^1.1.5"
-    typescript "^4.4.3"
+    tinygradient "^1.0.0"
 
 gzip-size@^6.0.0:
   version "6.0.0"
@@ -9558,7 +9557,7 @@ tinycolor2@^1.0.0:
   resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.2.tgz#3f6a4d1071ad07676d7fa472e1fac40a719d8803"
   integrity sha512-vJhccZPs965sV/L2sU4oRQVAos0pQXwsvTLkWYdqJ+a8Q5kPFzJTuOFwy7UniPli44NKQGAglksjvOcpo95aZA==
 
-tinygradient@^1.1.5:
+tinygradient@^1.0.0:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/tinygradient/-/tinygradient-1.1.5.tgz#0fb855ceb18d96b21ba780b51a8012033b2530ef"
   integrity sha512-8nIfc2vgQ4TeLnk2lFj4tRLvvJwEfQuabdsmvDdQPT0xlk9TaNtpGd6nNRxXoK6vQhN6RSzj+Cnp5tTQmpxmbw==
@@ -9702,7 +9701,7 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@^4.4.3, typescript@^4.7.4:
+typescript@^4.7.4:
   version "4.7.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.4.tgz#1a88596d1cf47d59507a1bcdfb5b9dfe4d488235"
   integrity sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==

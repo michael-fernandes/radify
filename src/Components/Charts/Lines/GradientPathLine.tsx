@@ -2,7 +2,7 @@ import { line, select } from 'd3';
 import { useEffect, useRef } from 'react';
 import { linePathGradient } from '../../../Constants/Colors';
 import { UslaborData } from '../../../Types/data';
-import { segmentPaths } from '../../../utils/segmentPaths';
+import segmentPaths from '../../../utils/segmentPaths';
 
 interface Props {
   width: number,
@@ -27,10 +27,8 @@ const GradientPathLine = ({ width: paddedWidth, height, angle, radius, data }: P
         .data(segmentPaths(data, angle, radius))
         .enter()
         .append('path')
-        .attr('fill', (d, i, array) => {
-          return (i !== 0 && i <= array.length - 3) ? linePathGradient(d.progress) : "none"
-        })
-        .attr('d', d => lineFunc(d.samples));
+        .attr('fill', (d: any) => linePathGradient(d.progress))
+        .attr('d', (d: any) => lineFunc(d.samples));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, paddedWidth, height, lineRef])

@@ -1,10 +1,10 @@
 // TODO: put this in a folder with the data that uses it.
 export const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 export const ONE_MONTH_RADIAN = Math.PI * 2 / 12;
-export const SVG_W3 = "http://www.w3.org/2000/svg"
+export const SVG_NS = "http://www.w3.org/2000/svg"
 
-export const SEGMENTS = 50;
-export const SAMPLES =  6;
+export const SEGMENTS = 40;
+export const SAMPLES =  3;
 export const PRECISION = 2;
 export const STROKE_WIDTH = 2.5;
 

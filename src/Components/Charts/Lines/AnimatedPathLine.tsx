@@ -2,7 +2,7 @@ import { easings, useSpring } from '@react-spring/core';
 import { animated } from '@react-spring/web';
 
 import { LineRadial } from "@visx/shape";
-import { curveBasisOpen, select, transition } from "d3";
+import { curveBasisOpen } from "d3";
 import { useEffect, useRef, useState } from "react";
 import { UslaborData } from "../../../Types/data";
 import { RadialGradient } from '@visx/gradient';

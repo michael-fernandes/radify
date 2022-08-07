@@ -16,8 +16,8 @@ export const interpolate = (data: any[]): any[]  => {
   }, []);
   
   return [
-    interpolated[0],
     ...interpolated,
+    interpolated[interpolated.length - 1],
     interpolated[interpolated.length - 1]  
   ];
 }
