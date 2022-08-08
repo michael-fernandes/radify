@@ -1,4 +1,4 @@
-// TODO: do this to data itself
+// TODO: Modify data itself once
 export const interpolate = (data: any[]): any[]  => { 
   const interpolated = data.reduce((acc: any[], current: any) => {
     if (!acc.length) {
@@ -15,9 +15,10 @@ export const interpolate = (data: any[]): any[]  => {
     return [...acc, current]
   }, []);
   
+  // Helps gradient path.
   return [
+    interpolated[0],
     ...interpolated,
-    interpolated[interpolated.length - 1],
     interpolated[interpolated.length - 1]  
   ];
 }

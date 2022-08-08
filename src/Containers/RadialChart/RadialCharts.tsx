@@ -1,4 +1,4 @@
-import Radial from '../../Components/Charts/Base/Radial';
+import RadialChart from '../../Components/Charts/Base/RadialChart';
 import { dateSort } from '../../utils/dateHelpers';
 import { interpolate } from '../../utils/interpolate';
 import styles from './RadialChart.module.css'
@@ -39,11 +39,11 @@ const RadialCharts = ({ pathType }: Props) => {
   return (
     <section className={styles.container}>
       <div className={styles.grid}>
-        <Radial presentation="hero" title="Consumer Price Index (% change YoY)" key="CPI all items" dimensionName="CPI all items" data={cpiData} pathType={pathType} />
+        <RadialChart title="Consumer Price Index (% change YoY)" key="CPI all items" dimensionName="CPI all items" data={cpiData} pathType={pathType} />
       </div>
       <hr className={styles.hr} />
       <div className={styles.grid}>
-        {commodities.map(commodity => <Radial key={commodity} data={uslaborData} dimensionName={commodity} pathType={pathType} />)}
+        {commodities.map(commodity => <RadialChart key={commodity} data={uslaborData} dimensionName={commodity} pathType={pathType} />)}
       </div>
     </section>
   );

@@ -8,7 +8,7 @@ import { UslaborData } from "../../../Types/data";
 import { RadialGradient } from '@visx/gradient';
 
 const springConfig = {
-  duration: 2000,
+  duration: 3000,
   easing: easings.easeInOutSine,
 };
 

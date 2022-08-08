@@ -42,7 +42,6 @@ const Header = ({ pathType: gradientType, setPathType: setGradientType }: Props)
           <ToggleButton value="Radial">Radial</ToggleButton>
           <ToggleButton value="Linear">Linear</ToggleButton>
         </ToggleButtonGroup>
-        {gradientType === "Linear" && <p className={styles.warning}>Warning - missing data: There is a slight implementation hurtle that is causing a few points not to render, stay tuned.</p>}
       </div>
     </header>
   );

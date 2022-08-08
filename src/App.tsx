@@ -10,7 +10,7 @@ if (process.env.REACT_APP_GA_TRACKER && process.env.NODE_ENV === "development") 
 }
 
 function App() {
-  const [pathType, setPathType] = useState("Linear")
+  const [pathType, setPathType] = useState("Radial")
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search)

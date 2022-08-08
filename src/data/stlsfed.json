@@ -5,6 +5,11 @@
     "CPILFESL_PC1": 2.05132
   },
   {
+    "Month": "2019-03-01",
+    "CPI all items": 1.87995,
+    "CPILFESL_PC1": 2.05132
+  },
+  {
     "Month": "2019-04-01",
     "CPI all items": 2.00563,
     "CPILFESL_PC1": 2.08688
@@ -193,6 +198,11 @@
     "Month": "2022-05-01",
     "CPI all items": 8.51641,
     "CPILFESL_PC1": 6.01128
+  },
+  {
+    "Month": "2022-06-01",
+    "CPI all items": 8.99522,
+    "CPILFESL_PC1": 5.91245
   },
   {
     "Month": "2022-06-01",

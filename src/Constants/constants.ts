@@ -3,10 +3,10 @@ export const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', '
 export const ONE_MONTH_RADIAN = Math.PI * 2 / 12;
 export const SVG_NS = "http://www.w3.org/2000/svg"
 
-export const SEGMENTS = 40;
-export const SAMPLES =  3;
+export const SEGMENTS = 70;
+export const SAMPLES =  10;
 export const PRECISION = 2;
-export const STROKE_WIDTH = 2.5;
+export const STROKE_WIDTH = 3;
 
 export const CONTENT = {
   intro: "Visualize the seasonality in inflation data.  Data sources include Consumer Price Index(CPI) (% YoY Change) and commoditiy index from the St. Louis Fed and Us Labor Department respectively.",

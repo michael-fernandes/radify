@@ -13,7 +13,7 @@ const radialPath = (data: UslaborData[], angle: (d: UslaborData) => number, radi
 
 const segmentPaths = (data: UslaborData[], angle: (d: UslaborData) => number, radius: (d: UslaborData) => number) => {
   const fauxPathEl = document.createElementNS(SVG_NS, 'path');
-  fauxPathEl.setAttribute("d", radialPath(data,  angle, radius) + ' z');
+  fauxPathEl.setAttribute("d", radialPath(data,  angle, radius));
 
   const pathSegments = getData({ path: fauxPathEl, segments: SEGMENTS, samples: SAMPLES, precision: PRECISION });
   return strokeToFill(pathSegments, STROKE_WIDTH, PRECISION, false)
