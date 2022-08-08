@@ -2,31 +2,29 @@ import { Group } from '@visx/group';
 import { scaleOrdinal, scaleLinear } from '@visx/scale';
 import { AxisLeft } from '@visx/axis';
 import { GridRadial, GridAngle } from '@visx/grid';
-import { Bar } from '@visx/shape';
-import { LinearGradient, RadialGradient } from '@visx/gradient';
-
-import { UslaborData } from '../../../Types/data';
+import { ChartData } from '../../../Types/data';
 import { useMeasure } from "react-use";
 
 import styles from "./Radial.module.css"
 import { extentByDimension } from '../../../utils/extent';
 import { MONTHS, ONE_MONTH_RADIAN } from '../../../Constants/constants';
 import { CHART_PADDING } from './constants';
-import { darkgreen, grey, strokeColor } from '../../../Constants/Colors';
+import { grey, strokeColor } from '../../../Constants/Colors';
 
 import RadialLabels from '../Labels/RadialLabels';
 import GradientPathLine from '../Lines/GradientPathLine';
 import "../overrides.css"
 import AnimatedPathLine from '../Lines/AnimatedPathLine';
 import { useEffect, useState } from 'react';
-import { pointRadial } from 'd3';
+import { radialPath } from '../../../utils/segmentPath';
+import Legend from '../Legend/Legend';
 
-const date = (d: UslaborData) => d.Month.split(' ')[0];
+const date = (d: ChartData) => d.Month.split(' ')[0];
 const circularDomain = Array(12).fill(0).map((_d, index) => (index) * ONE_MONTH_RADIAN);
 
 export type LineRadialProps = {
   accessor?: any;
-  data: UslaborData[];
+  data: ChartData[];
   dimensionName: string;
   pathType: string,
   title?: string
@@ -38,7 +36,7 @@ function Radial({ dimensionName, accessor, data, pathType, title }: LineRadialPr
 
   const paddedWidth = width - 20;
 
-  const yAccessor = accessor ?? ((datum: UslaborData) => datum[dimensionName])
+  const yAccessor = accessor ?? ((datum: ChartData) => datum[dimensionName])
 
   const xScale = scaleOrdinal({
     range: circularDomain,
@@ -53,8 +51,8 @@ function Radial({ dimensionName, accessor, data, pathType, title }: LineRadialPr
   yScale.range([0, paddedWidth / 2 - CHART_PADDING]);
   const reverseYScale = yScale.copy().range(yScale.range().reverse());
 
-  const radius = (d: UslaborData) => yScale(yAccessor(d)) ?? 0;
-  const angle = (d: UslaborData) => xScale(date(d)) ?? 0;
+  const radius = (d: ChartData) => yScale(yAccessor(d)) ?? 0;
+  const angle = (d: ChartData) => xScale(date(d)) ?? 0;
 
   const firstPoint = data[0];
   const lastPoint = data[data.length - 1];
@@ -69,12 +67,10 @@ function Radial({ dimensionName, accessor, data, pathType, title }: LineRadialPr
   return (
     <div className={styles.grid_wrapper}>
       <h3 className={styles.chart_title}>{title ?? dimensionName}</h3>
+      {pathType === "Linear" &&
+        <Legend p1={firstPoint} p2={lastPoint} />}
       <div className={styles.chart} ref={ref}>
         <div >
-          <svg>
-            <LinearGradfient />
-            <Bar />
-          </svg>
           <svg className={styles.svg} width={paddedWidth} height={height} onClick={() => setShouldAnimate(!shouldAnimate)}>
             <Group top={radiusLen} left={paddedWidth / 2}>
 
@@ -99,9 +95,7 @@ function Radial({ dimensionName, accessor, data, pathType, title }: LineRadialPr
               />
               {pathType === "Linear"
                 ? <GradientPathLine
-                  angle={angle}
-                  radius={radius}
-                  data={data}
+                  path={radialPath(data, angle, radius)}
                   width={paddedWidth}
                   height={height} />
                 : < AnimatedPathLine
@@ -130,10 +124,6 @@ function Radial({ dimensionName, accessor, data, pathType, title }: LineRadialPr
                 strokeOpacity={0.3}
                 numTicks={10}
               />
-              {[firstPoint, lastPoint].map((d, i) => {
-                const [x, y] = pointRadial(angle(d), radius(d));
-                return <circle key={`line-cap-${i}`} cx={x} cy={y} fill={darkgreen} r={3} />;
-              })}
               <RadialLabels xScale={xScale} yScale={yScale} />
             </Group>
           </svg>

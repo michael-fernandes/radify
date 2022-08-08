@@ -4,7 +4,7 @@ import { animated } from '@react-spring/web';
 import { LineRadial } from "@visx/shape";
 import { curveBasisOpen } from "d3";
 import { useEffect, useRef, useState } from "react";
-import { UslaborData } from "../../../Types/data";
+import { ChartData } from "../../../Types/data";
 import { RadialGradient } from '@visx/gradient';
 
 const springConfig = {
@@ -13,9 +13,9 @@ const springConfig = {
 };
 
 interface Props {
-  angle: (d: UslaborData) => number,
-  radius: (d: UslaborData) => number,
-  data: UslaborData[],
+  angle: (d: ChartData) => number,
+  radius: (d: ChartData) => number,
+  data: ChartData[],
   shouldAnimate: boolean,
   setShouldAnimate: (b: boolean) => void,
   width: number
