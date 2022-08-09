@@ -12,7 +12,7 @@ export const interpolate = (data: any[]): any[]  => {
       }
     })
 
-    return [...acc, current]
+  return [...acc, current]
   }, []);
   
   // Helps gradient path.

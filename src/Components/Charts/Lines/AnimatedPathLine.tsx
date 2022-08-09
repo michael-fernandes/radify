@@ -68,7 +68,7 @@ const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShould
                     strokeLinecap="round"
                     fill="none"
                     stroke="url(#line-gradient)"
-                    strokeDashoffset={spring.frame.interpolate((v) => v * lineLength)}
+                    strokeDashoffset={spring.frame.to((v) => v * lineLength)}
                     strokeDasharray={lineLength} />
                 </>
               )}

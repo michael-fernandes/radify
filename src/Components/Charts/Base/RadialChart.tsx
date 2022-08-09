@@ -9,7 +9,7 @@ import styles from "./Radial.module.css"
 import { extentByDimension } from '../../../utils/extent';
 import { MONTHS, ONE_MONTH_RADIAN } from '../../../Constants/constants';
 import { CHART_PADDING } from './constants';
-import { grey, strokeColor } from '../../../Constants/Colors';
+import { darkgreen, grey, strokeColor } from '../../../Constants/Colors';
 
 import RadialLabels from '../Labels/RadialLabels';
 import GradientPathLine from '../Lines/GradientPathLine';
@@ -18,6 +18,8 @@ import AnimatedPathLine from '../Lines/AnimatedPathLine';
 import { useEffect, useState } from 'react';
 import { radialPath } from '../../../utils/segmentPath';
 import Legend from '../Legend/Legend';
+import { pointRadial } from 'd3-shape';
+import Text from '@visx/text/lib/Text';
 
 const date = (d: ChartData) => d.Month.split(' ')[0];
 const circularDomain = Array(12).fill(0).map((_d, index) => (index) * ONE_MONTH_RADIAN);
@@ -28,11 +30,13 @@ export type LineRadialProps = {
   dimensionName: string;
   pathType: string,
   title?: string
+  showLegend?: boolean
 };
 
-function Radial({ dimensionName, accessor, data, pathType, title }: LineRadialProps) {
+function Radial({ dimensionName, accessor, data, pathType, title, showLegend }: LineRadialProps) {
   const [ref, { width, height }] = useMeasure<HTMLDivElement>();
   const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
+  const [hover, setHover] = useState<boolean>(false);
 
   const paddedWidth = width - 20;
 
@@ -64,10 +68,13 @@ function Radial({ dimensionName, accessor, data, pathType, title }: LineRadialPr
     setShouldAnimate(true)
   }, [])
 
+  const mouseOver = () => setHover(true)
+  const mouseOut = () => setHover(false)
+
   return (
-    <div className={styles.grid_wrapper}>
+    <div className={styles.grid_wrapper} onMouseOver={mouseOver} onMouseOut={mouseOut} >
       <h3 className={styles.chart_title}>{title ?? dimensionName}</h3>
-      {pathType === "Linear" &&
+      {showLegend && pathType === "Linear" &&
         <Legend p1={firstPoint} p2={lastPoint} />}
       <div className={styles.chart} ref={ref}>
         <div >
@@ -125,6 +132,17 @@ function Radial({ dimensionName, accessor, data, pathType, title }: LineRadialPr
                 numTicks={10}
               />
               <RadialLabels xScale={xScale} yScale={yScale} />
+              {hover && pathType === "Linear" &&
+                [firstPoint, lastPoint].map((d, i) => {
+                  if (d) {
+                    const [x, y] = pointRadial(angle(d), radius(d));
+                    // return <circle key={`line-cap-${i}`} cx={x} cy={y} fill={darkgreen} r={3} />;
+                    return (<g key={d.Month} transform={`translate(${x},${y})`}>
+                      <Text scaleToFit="shrink-only" width={50} fill={"black"} textAnchor="middle">{d.Month}</Text>
+                    </g>)
+                  }
+                })
+              }
             </Group>
           </svg>
         </div>
