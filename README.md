@@ -3,9 +3,9 @@ Radify visualizes data in a continous radial fashion as to highlight the seasona
 
 [Radify.info](https://radify-357623.uw.r.appspot.com/).
 
-![Linear](https://user-images.githubusercontent.com/14987935/185210023-2c92a9d1-0ab7-4cca-9a17-6c2910ee79d6.png)
+![Linear](https://user-images.githubusercontent.com/14987935/185210023-2c92a9d1-0ab7-4cca-9a17-6c2910ee79d6.png =250x)
 
-![Radial](https://user-images.githubusercontent.com/14987935/185210013-700c4bac-fa7c-40ef-b430-543207941b85.png)
+![Radial](https://user-images.githubusercontent.com/14987935/185210013-700c4bac-fa7c-40ef-b430-543207941b85.png =250x)
 
 ### Tools
 Visualizations are created with [D3.js](https://github.com/facebook/create-react-app) and [visx](https://github.com/airbnb/visx).
