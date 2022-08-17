@@ -3,13 +3,13 @@ import { scaleOrdinal, scaleLinear } from '@visx/scale';
 import { AxisLeft } from '@visx/axis';
 import { GridRadial, GridAngle } from '@visx/grid';
 import { ChartData } from '../../../Types/data';
+
 import { useMeasure } from "react-use";
 
-import styles from "./Radial.module.css"
 import { extentByDimension } from '../../../utils/extent';
 import { MONTHS, ONE_MONTH_RADIAN } from '../../../Constants/constants';
 import { CHART_PADDING } from './constants';
-import { darkgreen, grey, strokeColor } from '../../../Constants/Colors';
+import { grey, strokeColor } from '../../../Constants/Colors';
 
 import RadialLabels from '../Labels/RadialLabels';
 import GradientPathLine from '../Lines/GradientPathLine';
@@ -20,6 +20,9 @@ import { radialPath } from '../../../utils/segmentPath';
 import Legend from '../Legend/Legend';
 import { pointRadial } from 'd3-shape';
 import Text from '@visx/text/lib/Text';
+
+import styles from "./Radial.module.css"
+
 
 const date = (d: ChartData) => d.Month.split(' ')[0];
 const circularDomain = Array(12).fill(0).map((_d, index) => (index) * ONE_MONTH_RADIAN);
@@ -132,15 +135,15 @@ function Radial({ dimensionName, accessor, data, pathType, title, showLegend }: 
                 numTicks={10}
               />
               <RadialLabels xScale={xScale} yScale={yScale} />
-              {hover && pathType === "Linear" &&
-                [firstPoint, lastPoint].map((d, i) => {
-                  if (d) {
-                    const [x, y] = pointRadial(angle(d), radius(d));
-                    // return <circle key={`line-cap-${i}`} cx={x} cy={y} fill={darkgreen} r={3} />;
-                    return (<g key={d.Month} transform={`translate(${x},${y})`}>
-                      <Text scaleToFit="shrink-only" width={50} fill={"black"} textAnchor="middle">{d.Month}</Text>
-                    </g>)
-                  }
+              {hover &&
+                [firstPoint, lastPoint].map((d, index) => {
+                  const [x, y] = pointRadial(angle(d), radius(d));
+                  return (
+                    <g key={d.Month} transform={`translate(${x},${y})`}>
+                      <circle key={`line-cap-${d.MONTH}`} fill={"#4E5180"} r={4} />
+                      <Text scaleToFit="shrink-only" x={!index ? 20 : 0} y={-10} width={50} fill={"black"} textAnchor="middle">{d.Month}</Text>
+                    </g>
+                  )
                 })
               }
             </Group>
