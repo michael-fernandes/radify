@@ -33,7 +33,7 @@ const Header = ({ pathType: gradientType, setPathType: setGradientType }: Props)
           Gradient Type:
         </span>
         <ToggleButtonGroup
-          color="primary"
+          color="standard"
           value={gradientType}
           exclusive
           onChange={handleChange}
