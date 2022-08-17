@@ -205,8 +205,18 @@
     "CPILFESL_PC1": 5.91245
   },
   {
-    "Month": "2022-06-01",
-    "CPI all items": 8.99522,
-    "CPILFESL_PC1": 5.91245
+    "Month": "2022-07-01",
+    "CPI all items": 8.5,
+    "CPILFESL_PC1": 5.6249
+  },
+  {
+    "Month": "2022-07-01",
+    "CPI all items": 8.5,
+    "CPILFESL_PC1": 5.6249
+  },
+  {
+    "Month": "2022-07-01",
+    "CPI all items": 8.5,
+    "CPILFESL_PC1": 5.6249
   }
 ]

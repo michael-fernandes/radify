@@ -10,7 +10,21 @@
     "Eggs(grade A) ($ / doz)": 1.544,
     "Gasoline ($ / gallon)": 2.564,
     "Ground beef ($ / lb)": 3.831,
-    "Utility (piped) gas ($ / therm)": 1.048,
+    "Utility Gas ($ / therm)": 1.048,
+    "Milk, fresh ($ / gal)": 2.944
+  },
+  {
+    "Month": "Mar 2019",
+    "Bananas ($ / lb)": 0.581,
+    "Oranges-Navel ($ / lb)": 1.346,
+    "White Bread ($ / lb)": 1.261,
+    "Tomatoes ($ / lb)": 2.079,
+    "Whole Chicken ($ / lb)": 1.468,
+    "Electricity ($ / kWh)": 0.135,
+    "Eggs(grade A) ($ / doz)": 1.544,
+    "Gasoline ($ / gallon)": 2.564,
+    "Ground beef ($ / lb)": 3.831,
+    "Utility Gas ($ / therm)": 1.048,
     "Milk, fresh ($ / gal)": 2.944
   },
   {
@@ -24,7 +38,7 @@
     "Eggs(grade A) ($ / doz)": 1.463,
     "Gasoline ($ / gallon)": 2.835,
     "Ground beef ($ / lb)": 3.907,
-    "Utility (piped) gas ($ / therm)": 1.034,
+    "Utility Gas ($ / therm)": 1.034,
     "Milk, fresh ($ / gal)": 2.98
   },
   {
@@ -38,7 +52,7 @@
     "Eggs(grade A) ($ / doz)": 1.362,
     "Gasoline ($ / gallon)": 2.901,
     "Ground beef ($ / lb)": 4.023,
-    "Utility (piped) gas ($ / therm)": 1.035,
+    "Utility Gas ($ / therm)": 1.035,
     "Milk, fresh ($ / gal)": 2.963
   },
   {
@@ -52,7 +66,7 @@
     "Eggs(grade A) ($ / doz)": 1.203,
     "Gasoline ($ / gallon)": 2.752,
     "Ground beef ($ / lb)": 3.951,
-    "Utility (piped) gas ($ / therm)": 1.035,
+    "Utility Gas ($ / therm)": 1.035,
     "Milk, fresh ($ / gal)": 3.054
   },
   {
@@ -66,7 +80,7 @@
     "Eggs(grade A) ($ / doz)": 1.243,
     "Gasoline ($ / gallon)": 2.776,
     "Ground beef ($ / lb)": 4.001,
-    "Utility (piped) gas ($ / therm)": 1.029,
+    "Utility Gas ($ / therm)": 1.029,
     "Milk, fresh ($ / gal)": 3.031
   },
   {
@@ -80,7 +94,7 @@
     "Eggs(grade A) ($ / doz)": 1.219,
     "Gasoline ($ / gallon)": 2.655,
     "Ground beef ($ / lb)": 4.019,
-    "Utility (piped) gas ($ / therm)": 1.034,
+    "Utility Gas ($ / therm)": 1.034,
     "Milk, fresh ($ / gal)": 3.045
   },
   {
@@ -94,7 +108,7 @@
     "Eggs(grade A) ($ / doz)": 1.383,
     "Gasoline ($ / gallon)": 2.63,
     "Ground beef ($ / lb)": 3.885,
-    "Utility (piped) gas ($ / therm)": 1.019,
+    "Utility Gas ($ / therm)": 1.019,
     "Milk, fresh ($ / gal)": 3.102
   },
   {
@@ -108,7 +122,7 @@
     "Eggs(grade A) ($ / doz)": 1.282,
     "Gasoline ($ / gallon)": 2.673,
     "Ground beef ($ / lb)": 4.027,
-    "Utility (piped) gas ($ / therm)": 1.041,
+    "Utility Gas ($ / therm)": 1.041,
     "Milk, fresh ($ / gal)": 3.119
   },
   {
@@ -122,7 +136,7 @@
     "Eggs(grade A) ($ / doz)": 1.405,
     "Gasoline ($ / gallon)": 2.62,
     "Ground beef ($ / lb)": 3.993,
-    "Utility (piped) gas ($ / therm)": 1.058,
+    "Utility Gas ($ / therm)": 1.058,
     "Milk, fresh ($ / gal)": 3.189
   },
   {
@@ -136,7 +150,7 @@
     "Eggs(grade A) ($ / doz)": 1.535,
     "Gasoline ($ / gallon)": 2.587,
     "Ground beef ($ / lb)": 4.066,
-    "Utility (piped) gas ($ / therm)": 1.057,
+    "Utility Gas ($ / therm)": 1.057,
     "Milk, fresh ($ / gal)": 3.188
   },
   {
@@ -150,7 +164,7 @@
     "Eggs(grade A) ($ / doz)": 1.461,
     "Gasoline ($ / gallon)": 2.567,
     "Ground beef ($ / lb)": 4.1,
-    "Utility (piped) gas ($ / therm)": 1.066,
+    "Utility Gas ($ / therm)": 1.066,
     "Milk, fresh ($ / gal)": 3.253
   },
   {
@@ -164,7 +178,7 @@
     "Eggs(grade A) ($ / doz)": 1.449,
     "Gasoline ($ / gallon)": 2.465,
     "Ground beef ($ / lb)": 4.033,
-    "Utility (piped) gas ($ / therm)": 1.05,
+    "Utility Gas ($ / therm)": 1.05,
     "Milk, fresh ($ / gal)": 3.196
   },
   {
@@ -178,7 +192,7 @@
     "Eggs(grade A) ($ / doz)": 1.525,
     "Gasoline ($ / gallon)": 2.267,
     "Ground beef ($ / lb)": 4.108,
-    "Utility (piped) gas ($ / therm)": 1.034,
+    "Utility Gas ($ / therm)": 1.034,
     "Milk, fresh ($ / gal)": 3.248
   },
   {
@@ -192,7 +206,7 @@
     "Eggs(grade A) ($ / doz)": 2.019,
     "Gasoline ($ / gallon)": 1.876,
     "Ground beef ($ / lb)": 4.343,
-    "Utility (piped) gas ($ / therm)": 1.028,
+    "Utility Gas ($ / therm)": 1.028,
     "Milk, fresh ($ / gal)": 3.267
   },
   {
@@ -206,7 +220,7 @@
     "Eggs(grade A) ($ / doz)": 1.64,
     "Gasoline ($ / gallon)": 1.879,
     "Ground beef ($ / lb)": 4.789,
-    "Utility (piped) gas ($ / therm)": 1.037,
+    "Utility Gas ($ / therm)": 1.037,
     "Milk, fresh ($ / gal)": 3.21
   },
   {
@@ -220,7 +234,7 @@
     "Eggs(grade A) ($ / doz)": 1.554,
     "Gasoline ($ / gallon)": 2.076,
     "Ground beef ($ / lb)": 5.33,
-    "Utility (piped) gas ($ / therm)": 1.037,
+    "Utility Gas ($ / therm)": 1.037,
     "Milk, fresh ($ / gal)": 3.198
   },
   {
@@ -234,7 +248,7 @@
     "Eggs(grade A) ($ / doz)": 1.401,
     "Gasoline ($ / gallon)": 2.176,
     "Ground beef ($ / lb)": 4.732,
-    "Utility (piped) gas ($ / therm)": 1.027,
+    "Utility Gas ($ / therm)": 1.027,
     "Milk, fresh ($ / gal)": 3.255
   },
   {
@@ -248,7 +262,7 @@
     "Eggs(grade A) ($ / doz)": 1.328,
     "Gasoline ($ / gallon)": 2.177,
     "Ground beef ($ / lb)": 4.307,
-    "Utility (piped) gas ($ / therm)": 1.031,
+    "Utility Gas ($ / therm)": 1.031,
     "Milk, fresh ($ / gal)": 3.406
   },
   {
@@ -262,7 +276,7 @@
     "Eggs(grade A) ($ / doz)": 1.353,
     "Gasoline ($ / gallon)": 2.193,
     "Ground beef ($ / lb)": 4.165,
-    "Utility (piped) gas ($ / therm)": 1.064,
+    "Utility Gas ($ / therm)": 1.064,
     "Milk, fresh ($ / gal)": 3.448
   },
   {
@@ -276,7 +290,7 @@
     "Eggs(grade A) ($ / doz)": 1.408,
     "Gasoline ($ / gallon)": 2.159,
     "Ground beef ($ / lb)": 4.212,
-    "Utility (piped) gas ($ / therm)": 1.067,
+    "Utility Gas ($ / therm)": 1.067,
     "Milk, fresh ($ / gal)": 3.38
   },
   {
@@ -290,7 +304,7 @@
     "Eggs(grade A) ($ / doz)": 1.45,
     "Gasoline ($ / gallon)": 2.09,
     "Ground beef ($ / lb)": 4.33,
-    "Utility (piped) gas ($ / therm)": 1.104,
+    "Utility Gas ($ / therm)": 1.104,
     "Milk, fresh ($ / gal)": 3.425
   },
   {
@@ -304,7 +318,7 @@
     "Eggs(grade A) ($ / doz)": 1.481,
     "Gasoline ($ / gallon)": 2.168,
     "Ground beef ($ / lb)": 4.202,
-    "Utility (piped) gas ($ / therm)": 1.114,
+    "Utility Gas ($ / therm)": 1.114,
     "Milk, fresh ($ / gal)": 3.535
   },
   {
@@ -318,7 +332,7 @@
     "Eggs(grade A) ($ / doz)": 1.466,
     "Gasoline ($ / gallon)": 2.326,
     "Ground beef ($ / lb)": 4.31,
-    "Utility (piped) gas ($ / therm)": 1.119,
+    "Utility Gas ($ / therm)": 1.119,
     "Milk, fresh ($ / gal)": 3.468
   },
   {
@@ -332,7 +346,7 @@
     "Eggs(grade A) ($ / doz)": 1.597,
     "Gasoline ($ / gallon)": 2.496,
     "Ground beef ($ / lb)": 4.252,
-    "Utility (piped) gas ($ / therm)": 1.124,
+    "Utility Gas ($ / therm)": 1.124,
     "Milk, fresh ($ / gal)": 3.368
   },
   {
@@ -346,7 +360,7 @@
     "Eggs(grade A) ($ / doz)": 1.625,
     "Gasoline ($ / gallon)": 2.791,
     "Ground beef ($ / lb)": 4.377,
-    "Utility (piped) gas ($ / therm)": 1.144,
+    "Utility Gas ($ / therm)": 1.144,
     "Milk, fresh ($ / gal)": 3.348
   },
   {
@@ -360,7 +374,7 @@
     "Eggs(grade A) ($ / doz)": 1.62,
     "Gasoline ($ / gallon)": 2.839,
     "Ground beef ($ / lb)": 4.29,
-    "Utility (piped) gas ($ / therm)": 1.166,
+    "Utility Gas ($ / therm)": 1.166,
     "Milk, fresh ($ / gal)": 3.447
   },
   {
@@ -374,7 +388,7 @@
     "Eggs(grade A) ($ / doz)": 1.625,
     "Gasoline ($ / gallon)": 2.972,
     "Ground beef ($ / lb)": 4.495,
-    "Utility (piped) gas ($ / therm)": 1.201,
+    "Utility Gas ($ / therm)": 1.201,
     "Milk, fresh ($ / gal)": 3.497
   },
   {
@@ -388,7 +402,7 @@
     "Eggs(grade A) ($ / doz)": 1.642,
     "Gasoline ($ / gallon)": 3.154,
     "Ground beef ($ / lb)": 4.565,
-    "Utility (piped) gas ($ / therm)": 1.219,
+    "Utility Gas ($ / therm)": 1.219,
     "Milk, fresh ($ / gal)": 3.557
   },
   {
@@ -402,7 +416,7 @@
     "Eggs(grade A) ($ / doz)": 1.642,
     "Gasoline ($ / gallon)": 3.233,
     "Ground beef ($ / lb)": 4.521,
-    "Utility (piped) gas ($ / therm)": 1.241,
+    "Utility Gas ($ / therm)": 1.241,
     "Milk, fresh ($ / gal)": 3.627
   },
   {
@@ -416,7 +430,7 @@
     "Eggs(grade A) ($ / doz)": 1.709,
     "Gasoline ($ / gallon)": 3.255,
     "Ground beef ($ / lb)": 4.636,
-    "Utility (piped) gas ($ / therm)": 1.267,
+    "Utility Gas ($ / therm)": 1.267,
     "Milk, fresh ($ / gal)": 3.56
   },
   {
@@ -430,7 +444,7 @@
     "Eggs(grade A) ($ / doz)": 1.835,
     "Gasoline ($ / gallon)": 3.265,
     "Ground beef ($ / lb)": 4.786,
-    "Utility (piped) gas ($ / therm)": 1.302,
+    "Utility Gas ($ / therm)": 1.302,
     "Milk, fresh ($ / gal)": 3.585
   },
   {
@@ -444,7 +458,7 @@
     "Eggs(grade A) ($ / doz)": 1.821,
     "Gasoline ($ / gallon)": 3.385,
     "Ground beef ($ / lb)": 4.869,
-    "Utility (piped) gas ($ / therm)": 1.383,
+    "Utility Gas ($ / therm)": 1.383,
     "Milk, fresh ($ / gal)": 3.663
   },
   {
@@ -458,7 +472,7 @@
     "Eggs(grade A) ($ / doz)": 1.718,
     "Gasoline ($ / gallon)": 3.482,
     "Ground beef ($ / lb)": 4.81,
-    "Utility (piped) gas ($ / therm)": 1.401,
+    "Utility Gas ($ / therm)": 1.401,
     "Milk, fresh ($ / gal)": 3.671
   },
   {
@@ -472,7 +486,7 @@
     "Eggs(grade A) ($ / doz)": 1.788,
     "Gasoline ($ / gallon)": 3.408,
     "Ground beef ($ / lb)": 4.792,
-    "Utility (piped) gas ($ / therm)": 1.402,
+    "Utility Gas ($ / therm)": 1.402,
     "Milk, fresh ($ / gal)": 3.743
   },
   {
@@ -486,7 +500,7 @@
     "Eggs(grade A) ($ / doz)": 1.929,
     "Gasoline ($ / gallon)": 3.413,
     "Ground beef ($ / lb)": 4.765,
-    "Utility (piped) gas ($ / therm)": 1.409,
+    "Utility Gas ($ / therm)": 1.409,
     "Milk, fresh ($ / gal)": 3.787
   },
   {
@@ -500,7 +514,7 @@
     "Eggs(grade A) ($ / doz)": 2.005,
     "Gasoline ($ / gallon)": 3.592,
     "Ground beef ($ / lb)": 4.627,
-    "Utility (piped) gas ($ / therm)": 1.413,
+    "Utility Gas ($ / therm)": 1.413,
     "Milk, fresh ($ / gal)": 3.875
   },
   {
@@ -514,7 +528,7 @@
     "Eggs(grade A) ($ / doz)": 2.046,
     "Gasoline ($ / gallon)": 4.312,
     "Ground beef ($ / lb)": 4.87,
-    "Utility (piped) gas ($ / therm)": 1.411,
+    "Utility Gas ($ / therm)": 1.411,
     "Milk, fresh ($ / gal)": 3.917
   },
   {
@@ -528,7 +542,7 @@
     "Eggs(grade A) ($ / doz)": 2.52,
     "Gasoline ($ / gallon)": 4.271,
     "Ground beef ($ / lb)": 4.945,
-    "Utility (piped) gas ($ / therm)": 1.445,
+    "Utility Gas ($ / therm)": 1.445,
     "Milk, fresh ($ / gal)": 4.012
   },
   {
@@ -542,7 +556,49 @@
     "Eggs(grade A) ($ / doz)": 2.863,
     "Gasoline ($ / gallon)": 4.604,
     "Ground beef ($ / lb)": 4.894,
-    "Utility (piped) gas ($ / therm)": 1.565,
+    "Utility Gas ($ / therm)": 1.565,
     "Milk, fresh ($ / gal)": 4.204
+  },
+  {
+    "Month": "Jun 2022",
+    "Bananas ($ / lb)": 0.64,
+    "Oranges-Navel ($ / lb)": 1.6,
+    "White Bread ($ / lb)": 1.691,
+    "Tomatoes ($ / lb)": 1.842,
+    "Whole Chicken ($ / lb)": 1.826,
+    "Electricity ($ / kWh)": 0.16,
+    "Eggs(grade A) ($ / doz)": 2.707,
+    "Gasoline ($ / gallon)": 5.058,
+    "Ground beef ($ / lb)": 4.997,
+    "Utility Gas ($ / therm)": 1.699,
+    "Milk, fresh ($ / gal)": 4.153
+  },
+  {
+    "Month": "Jul 2022",
+    "Bananas ($ / lb)": 0.64,
+    "Oranges-Navel ($ / lb)": null,
+    "White Bread ($ / lb)": 1.715,
+    "Tomatoes ($ / lb)": 1.842,
+    "Whole Chicken ($ / lb)": 1.88,
+    "Electricity ($ / kWh)": 0.166,
+    "Eggs(grade A) ($ / doz)": 2.936,
+    "Gasoline ($ / gallon)": 4.667,
+    "Ground beef ($ / lb)": 5.075,
+    "Utility Gas ($ / therm)": 1.629,
+    "Milk, fresh ($ / gal)": null
+  },
+  {
+    "Month": "Jul 2022",
+    "Bananas ($ / lb)": 0.64,
+    "Oranges-Navel ($ / lb)": null,
+    "White Bread ($ / lb)": 1.715,
+    "Tomatoes ($ / lb)": 1.842,
+    "Whole Chicken ($ / lb)": 1.88,
+    "Electricity ($ / kWh)": 0.166,
+    "Eggs(grade A) ($ / doz)": 2.936,
+    "Gasoline ($ / gallon)": 4.667,
+    "Ground beef ($ / lb)": 5.075,
+    "Utility Gas ($ / therm)": 1.629,
+    "Milk, fresh ($ / gal)": null
   }
  ]
