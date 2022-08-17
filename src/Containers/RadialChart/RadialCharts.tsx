@@ -7,8 +7,9 @@ const _usLaborData = require('../../data/uslabor.json');
 const _stlsfed = require('../../data/stlsfed.json');
 
 const cpiData = _stlsfed.map((d: any) => {
-  const dateSplit = new Date(d.Month).toDateString().split(" ")
-  const monthString = [dateSplit[1], dateSplit[3]].join(" ")
+  const [_year, _month, _date] = d.Month.split("-");
+  const [, month, , year] = new Date(_year, _month - 1, _date).toDateString().split(" ")
+  const monthString = [month, year].join(" ")
 
   return {
     ...d,
@@ -17,19 +18,7 @@ const cpiData = _stlsfed.map((d: any) => {
 }).sort(dateSort)
 
 const uslaborData = interpolate(_usLaborData)
-const commodities = [
-  "Bananas ($ / lb)",
-  "Oranges-Navel ($ / lb)",
-  "White Bread ($ / lb)",
-  "Tomatoes ($ / lb)",
-  "Whole Chicken ($ / lb)",
-  "Electricity ($ / kWh)",
-  "Eggs(grade A) ($ / doz)",
-  "Gasoline ($ / gallon)",
-  "Ground beef ($ / lb)",
-  "Utility (piped) gas ($ / therm)",
-  "Milk, fresh ($ / gal)"
-];
+const commodities = Object.keys(uslaborData[0]).filter(name => name !== "Month")
 
 interface Props {
   pathType: string,
