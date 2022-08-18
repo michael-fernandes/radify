@@ -13,7 +13,6 @@ Radify visualizes data in a continous radial fashion as to highlight the seasona
 ### Tools
 Visualizations are created with [D3.js](https://github.com/facebook/create-react-app) and [visx](https://github.com/airbnb/visx).
 
-
 ## TODO
 • Add animation for radial gradient
 • Add custom implementation for gradient-path
