@@ -10,11 +10,18 @@ export const radialPath = (data: ChartData[], angle: (d: ChartData) => number, r
   return lineRadial<any>().angle(d => angle(d)).radius(d => radius(d)).curve(curveBasisOpen)(data) || ''
 }
 
-const segmentPath = (path: string, strokeWidth: number = STROKE_WIDTH) => {
+// don't forget to remove it
+export const fauxPathNode = (path: string) => {
   const fauxPathEl = document.createElementNS(SVG_NS, 'path');
   fauxPathEl.setAttribute("d", path);
 
+  return fauxPathEl;
+}
+
+const segmentPath = (path: string, strokeWidth: number = STROKE_WIDTH) => {
+  const fauxPathEl = fauxPathNode(path);
   const pathSegments = getData({ path: fauxPathEl, segments: SEGMENTS, samples: SAMPLES, precision: PRECISION });
+  fauxPathEl.remove()
   return strokeToFill(pathSegments, strokeWidth, PRECISION, false)
 }
 

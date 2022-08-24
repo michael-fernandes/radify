@@ -1,16 +1,13 @@
-import { easings, useSpring } from '@react-spring/core';
+import { easings, useSpring, SpringConfig } from '@react-spring/core';
 import { animated } from '@react-spring/web';
 
 import { LineRadial } from "@visx/shape";
-import { curveBasisOpen } from "d3";
+import { curveBasisOpen, } from "d3";
 import { useEffect, useRef, useState } from "react";
 import { ChartData } from "../../../Types/data";
 import { RadialGradient } from '@visx/gradient';
-
-const springConfig = {
-  duration: 3000,
-  easing: easings.easeInOutSine,
-};
+import DotAnimation from './DotAnimation';
+import { ANIMATION_PERIOD } from '../../../Constants/constants';
 
 interface Props {
   angle: (d: ChartData) => number,
@@ -21,16 +18,29 @@ interface Props {
   width: number
 }
 
+const springConfig: SpringConfig = {
+  duration: ANIMATION_PERIOD,
+  easing: easings.linear,
+};
+
 const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShouldAnimate }: Props) => {
   const lineRef = useRef<SVGPathElement>(null);
+  const [debounceAnimate, setDebouncedAnimate] = useState(false)
 
-  // const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
   const [lineLength, setLineLength] = useState<number>(0);
 
   const spring = useSpring({
     frame: shouldAnimate ? 0 : 1,
     config: springConfig,
-    onRest: () => setShouldAnimate(false),
+    onStart: () => {
+      setDebouncedAnimate(true);
+    },
+    onRest: () => {
+      setShouldAnimate(false)
+      setDebouncedAnimate(false)
+    },
+    delay: 250,
+    reset: debounceAnimate
   });
 
   useEffect(() => {
@@ -42,15 +52,13 @@ const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShould
 
   return (
     <>
-      <RadialGradient from={"orange"} to={"purple"} id="line-gradient" />
+      <RadialGradient from={"grey"} to={"grey"} id="line-gradient" />
       <LineRadial angle={angle} radius={radius} curve={curveBasisOpen}>
         {({ path }) => {
           const d = path(data) || '';
           return (
             <>
-              <g>
-
-              </g>
+              {/* <DotAnimation path={d} shouldAnimate={shouldAnimate} data={data} /> */}
               <animated.path
                 d={d}
                 ref={lineRef}
@@ -58,7 +66,7 @@ const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShould
                 strokeOpacity={0.8}
                 strokeLinecap="round"
                 fill="none"
-                stroke={!shouldAnimate ? 'url(#line-gradient)' : 'none'} />
+                stroke={'none'} />
               {shouldAnimate && (
                 <>
                   <animated.path
@@ -67,7 +75,7 @@ const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShould
                     strokeOpacity={0.8}
                     strokeLinecap="round"
                     fill="none"
-                    stroke="url(#line-gradient)"
+                    stroke="grey"
                     strokeDashoffset={spring.frame.to((v) => v * lineLength)}
                     strokeDasharray={lineLength} />
                 </>

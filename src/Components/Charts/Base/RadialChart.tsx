@@ -7,7 +7,7 @@ import { ChartData } from '../../../Types/data';
 import { useMeasure } from "react-use";
 
 import { extentByDimension } from '../../../utils/extent';
-import { MONTHS, ONE_MONTH_RADIAN } from '../../../Constants/constants';
+import { BLUEISH, MONTHS, ONE_MONTH_RADIAN } from '../../../Constants/constants';
 import { CHART_PADDING } from './constants';
 import { grey, strokeColor } from '../../../Constants/Colors';
 
@@ -77,11 +77,9 @@ function Radial({ dimensionName, accessor, data, pathType, title, showLegend }: 
   return (
     <div className={styles.grid_wrapper} onMouseOver={mouseOver} onMouseOut={mouseOut} >
       <h3 className={styles.chart_title}>{title ?? dimensionName}</h3>
-      {showLegend && pathType === "Linear" &&
-        <Legend p1={firstPoint} p2={lastPoint} />}
       <div className={styles.chart} ref={ref}>
         <div >
-          <svg className={styles.svg} width={paddedWidth} height={height} onClick={() => setShouldAnimate(!shouldAnimate)}>
+          <svg className={styles.svg} width={paddedWidth} height={height} onClick={() => { !shouldAnimate && setShouldAnimate(!shouldAnimate) }}>
             <Group top={radiusLen} left={paddedWidth / 2}>
 
               <AxisLeft
@@ -103,19 +101,19 @@ function Radial({ dimensionName, accessor, data, pathType, title, showLegend }: 
                 tickFormat={(d) => String(d)}
                 hideAxisLine
               />
-              {pathType === "Linear"
-                ? <GradientPathLine
-                  path={radialPath(data, angle, radius)}
-                  width={paddedWidth}
-                  height={height} />
-                : < AnimatedPathLine
-                  setShouldAnimate={setShouldAnimate}
-                  shouldAnimate={shouldAnimate}
-                  angle={angle}
-                  radius={radius}
-                  data={data}
-                  width={width} />
-              }
+              <GradientPathLine
+                shouldAnimate={shouldAnimate}
+                path={radialPath(data, angle, radius)}
+                width={paddedWidth}
+                height={height}
+              />
+              < AnimatedPathLine
+                setShouldAnimate={setShouldAnimate}
+                shouldAnimate={shouldAnimate}
+                angle={angle}
+                radius={radius}
+                data={data}
+                width={width} />
               <GridRadial
                 className={styles.gridRadial}
                 scale={yScale}
@@ -135,13 +133,13 @@ function Radial({ dimensionName, accessor, data, pathType, title, showLegend }: 
                 numTicks={10}
               />
               <RadialLabels xScale={xScale} yScale={yScale} />
-              {hover &&
+              {!shouldAnimate &&
                 [firstPoint, lastPoint].map((d, index) => {
                   const [x, y] = pointRadial(angle(d), radius(d));
                   return (
                     <g key={d.Month} transform={`translate(${x},${y})`}>
-                      <circle key={`line-cap-${d.MONTH}`} fill={"#4E5180"} r={4} />
-                      <Text scaleToFit="shrink-only" x={!index ? 20 : 0} y={-10} width={50} fill={"black"} textAnchor="middle">{d.Month}</Text>
+                      <circle key={`line-cap-${d.MONTH}`} fill={BLUEISH} r={4} />
+                      <Text scaleToFit="shrink-only" x={!index ? 20 : 0} y={-10} width={50} fill={BLUEISH} textAnchor="middle">{d.Month}</Text>
                     </g>
                   )
                 })
@@ -150,6 +148,8 @@ function Radial({ dimensionName, accessor, data, pathType, title, showLegend }: 
           </svg>
         </div>
       </div>
+      {showLegend && pathType && pathType === "Linear" && !shouldAnimate &&
+        <Legend p1={firstPoint} p2={lastPoint} />}
     </div >
   );
 }

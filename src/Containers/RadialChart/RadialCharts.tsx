@@ -32,7 +32,7 @@ const RadialCharts = ({ pathType }: Props) => {
       </div>
       <hr className={styles.hr} />
       <div className={styles.grid}>
-        {commodities.map(commodity => <RadialChart key={commodity} data={uslaborData} dimensionName={commodity} pathType={pathType} />)}
+        {/* {commodities.map(commodity => <RadialChart key={commodity} data={uslaborData} dimensionName={commodity} pathType={pathType} />)} */}
       </div>
     </section>
   );

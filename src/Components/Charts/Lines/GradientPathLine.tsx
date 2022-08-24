@@ -8,12 +8,14 @@ interface Props {
   height: number,
   path: string
   strokeWidth?: number
+  shouldAnimate?: boolean
+  isLegend?: boolean
 }
-const GradientPathLine = ({ strokeWidth, width: paddedWidth, height, path }: Props) => {
+const GradientPathLine = ({ strokeWidth, width: paddedWidth, height, path, shouldAnimate = false, isLegend = false }: Props) => {
   const lineRef = useRef<SVGPathElement>(null);
 
   useEffect(() => {
-    if (lineRef.current) {
+    if (lineRef.current && (paddedWidth > 150 && height > 150) || isLegend) {
       const lineFunc = line<any>()
         .x(d => d.x)
         .y(d => d.y);
@@ -27,10 +29,10 @@ const GradientPathLine = ({ strokeWidth, width: paddedWidth, height, path }: Pro
         .attr('d', (d: any) => lineFunc(d.samples));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [paddedWidth, height, lineRef])
+  }, [paddedWidth, height, paddedWidth, lineRef])
 
   return (
-    <g className="gradientLine" ref={lineRef} />
+    <g className="gradientLine" ref={lineRef} style={{ opacity: shouldAnimate ? 0 : 1 }} />
   );
 };
 
