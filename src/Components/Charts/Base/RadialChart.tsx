@@ -110,7 +110,7 @@ function Radial({ dimensionName, accessor, data, title, dataLabel = "" }: LineRa
                   strokeWidth: 0.5,
                   paintOrder: 'stroke',
                 })}
-                tickFormat={(d) => `${dataLabel}${String(d)}`}
+                tickFormat={(d) => `${dataLabel}${dataLabel === "$" ? String(Number(d).toFixed(2)) : Number(d)}`}
                 hideAxisLine
               />
               <GradientPathLine
