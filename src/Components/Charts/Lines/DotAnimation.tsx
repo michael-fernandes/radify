@@ -36,13 +36,13 @@ const getDateFromPoint = (rads: number, year: number) => {
       month = m;
     }
   })
-  return `${month} '${year}` || '';
+  return `${month}` || '';
 }
 
 export default function DotAnimation({ path, shouldAnimate, data }: Props) {
   const ref = useRef(null);
-  const [hasLoaded, setLoad] = useState(false);
   const [month, setMonth] = useState(data[0].Month || 'Feb 2020')
+
 
   const pathTween = useCallback(() => {
 
@@ -54,21 +54,24 @@ export default function DotAnimation({ path, shouldAnimate, data }: Props) {
 
       // TODO: make this dynamic
       let year = 19;
-      let addYear = true;
+      let addYear = false;
 
       return function (t: number) {
         let { x, y } = fauxNode.getPointAtLength(r(t));
         const rads = radiansFromPoint(x, y);
 
-        if (addYear && x > 0 && y > 0) {
+        const month = getDateFromPoint(rads, year)
+
+        if (month === "Jan" && addYear) {
           year += 1
           addYear = false;
-        } else if (!addYear && x < 0 && y < 0) {
+        }
+
+        if (month === "Dec" && !addYear) {
           addYear = true;
         }
 
-        const date = getDateFromPoint(rads, year)
-        setMonth(date)
+        setMonth(`${month} '${year}`)
 
         select(ref.current) // Select circle and group
           .attr("cx", x) // Set the circles cx
