@@ -4,7 +4,7 @@ import { AxisLeft } from '@visx/axis';
 import { GridRadial, GridAngle } from '@visx/grid';
 import { ChartData } from '../../../Types/data';
 
-import { useDebounce, useMeasure } from "react-use";
+import { useMeasure } from "react-use";
 
 import { extentByDimension } from '../../../utils/extent';
 import { ANIMATION_PERIOD, BLUEISH, DOT_RADIUS, MONTHS, ONE_MONTH_RADIAN } from '../../../Constants/constants';
@@ -15,16 +15,14 @@ import RadialLabels from '../Labels/RadialLabels';
 import GradientPathLine from '../Lines/GradientPathLine';
 import "../overrides.css"
 import AnimatedPathLine from '../Lines/AnimatedPathLine';
-import { useEffect, useMemo, useState } from 'react';
-import segmentPath, { radialPath } from '../../../utils/segmentPath';
-import Legend from '../Legend/Legend';
+import { useState } from 'react';
+import { radialPath } from '../../../utils/segmentPath';
 import { pointRadial } from 'd3-shape';
 import Text from '@visx/text/lib/Text';
 
 import debounce from 'lodash/debounce';
 
 import styles from "./Radial.module.css"
-import GradientAnimation from '../../load/GradientAnimation';
 
 
 const date = (d: ChartData) => d.Month.split(' ')[0];
