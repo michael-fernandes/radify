@@ -155,8 +155,8 @@ function Radial({ dimensionName, accessor, data, pathType, title, showLegend, da
           </svg>
         </div>
       </div>
-      {showLegend && pathType && pathType === "Linear" && !shouldAnimate &&
-        <Legend p1={firstPoint} p2={lastPoint} />}
+      {/* {showLegend && pathType && pathType === "Linear" && !shouldAnimate &&
+        <Legend p1={firstPoint} p2={lastPoint} />} */}
     </div >
   );
 }
