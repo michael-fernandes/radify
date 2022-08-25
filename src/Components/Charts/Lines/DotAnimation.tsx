@@ -53,7 +53,7 @@ export default function DotAnimation({ path, shouldAnimate, data }: Props) {
       const r = interpolate(0, length);
 
       // TODO: make this dynamic
-      let year = 19;
+      let year = Number(data[0].Month.split(' ')[1].slice(-2));
       let addYear = false;
 
       return function (t: number) {
