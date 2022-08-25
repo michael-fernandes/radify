@@ -92,7 +92,6 @@ function Radial({ dimensionName, accessor, data, title, dataLabel = "" }: LineRa
     <div className={styles.grid_wrapper} >
       <h3 className={styles.chart_title}>{title ?? dimensionName}</h3>
       <div className={styles.chart} ref={ref}>
-        <GradientAnimation />
         <div >
           <svg className={styles.svg} width={paddedWidth} height={height} onClick={() => toggleAnimation()}>
             <Group top={radiusLen} left={paddedWidth / 2}>
@@ -172,8 +171,6 @@ function Radial({ dimensionName, accessor, data, title, dataLabel = "" }: LineRa
           </svg>
         </div>
       </div>
-      {/* {showLegend && pathType && pathType === "Linear" && !shouldAnimate &&
-        <Legend p1={firstPoint} p2={lastPoint} />} */}
     </div >
   );
 }

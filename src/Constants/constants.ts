@@ -3,8 +3,8 @@ export const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', '
 export const ONE_MONTH_RADIAN = Math.PI * 2 / 12;
 export const SVG_NS = "http://www.w3.org/2000/svg"
 
-export const SEGMENTS = 50;
-export const SAMPLES =  6;
+export const SEGMENTS = 40;
+export const SAMPLES =  7;
 export const PRECISION = 2;
 export const STROKE_WIDTH = 3;
 
