@@ -10,7 +10,7 @@ export const STROKE_WIDTH = 3;
 
 export const PAD_LABEL = 10;
 
-export const ANIMATION_PERIOD = 7000;
+export const ANIMATION_PERIOD = 14500;
 export const ANIMATION_DELAY = 3000;
 
 export const CONTENT = {
