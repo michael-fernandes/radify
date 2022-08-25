@@ -140,7 +140,13 @@ function Radial({ dimensionName, accessor, data, pathType, title, showLegend, da
                   return (
                     <g key={d.Month} transform={`translate(${x},${y})`}>
                       <circle key={`line-cap-${d.MONTH}`} fill={BLUEISH} r={4} />
-                      <Text scaleToFit="shrink-only" x={!index ? 20 : 0} y={-10} width={50} fill={BLUEISH} textAnchor="middle">{d.Month}</Text>
+                      <Text scaleToFit="shrink-only"
+                        x={-4} y={-7}
+                        width={40}
+                        fill={BLUEISH}
+                        textAnchor="middle">
+                        {d.Month.split(' ')[0] + " '" + d.Month.split(' ')[1].slice(-2)}
+                      </Text>
                     </g>
                   )
                 })
