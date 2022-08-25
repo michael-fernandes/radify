@@ -2,7 +2,7 @@ import { easings } from '@react-spring/web';
 import Text from '@visx/text/lib/Text';
 import { interpolate, select } from 'd3';
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ANIMATION_PERIOD, BLUEISH, MONTHS, ONE_MONTH_RADIAN } from '../../../Constants/constants';
+import { ANIMATION_PERIOD, BLUEISH, DOT_RADIUS, MONTHS, ONE_MONTH_RADIAN } from '../../../Constants/constants';
 import { ChartData } from '../../../Types/data';
 import { fauxPathNode } from '../../../utils/segmentPath';
 
@@ -45,34 +45,29 @@ export default function DotAnimation({ path, shouldAnimate, data }: Props) {
 
 
   const pathTween = useCallback(() => {
-
     if (ref.current) {
       const fauxNode = fauxPathNode(path) as any;
 
       const length = fauxNode.getTotalLength();
       const r = interpolate(0, length);
 
-      // TODO: make this dynamic
       let year = Number(data[0].Month.split(' ')[1].slice(-2));
       let addYear = false;
 
       return function (t: number) {
         let { x, y } = fauxNode.getPointAtLength(r(t));
-        const rads = radiansFromPoint(x, y);
 
+        const rads = radiansFromPoint(x, y);
         const month = getDateFromPoint(rads, year)
 
         if (month === "Jan" && addYear) {
           year += 1
           addYear = false;
-        }
-
-        if (month === "Dec" && !addYear) {
+        } else if (month === "Dec" && !addYear) {
           addYear = true;
         }
 
         setMonth(`${month} '${year}`)
-
         select(ref.current) // Select circle and group
           .attr("cx", x) // Set the circles cx
           .attr("cy", y) // Set the circles cy
@@ -80,7 +75,7 @@ export default function DotAnimation({ path, shouldAnimate, data }: Props) {
       }
     }
     return function (t: number) { }
-  }, [ref, path]);
+  }, [ref, path, data]);
 
   useEffect(() => {
     if (ref.current && shouldAnimate) {
@@ -90,21 +85,32 @@ export default function DotAnimation({ path, shouldAnimate, data }: Props) {
         .ease(easings.linear)
         .duration(ANIMATION_PERIOD)
         .tween("pathTween", pathTween)
-        .on('end', () =>
+        .on('end', () => {
+          console.log('ended')
           select(ref.current)
             .transition()
             .ease(easings.easeInOutBack)
             .duration(250)
             .style("opacity", 0)
+        }
         )
     }
 
-  }, [ref, path, shouldAnimate])
+  }, [ref, path, shouldAnimate, pathTween])
 
   return (
     <g ref={ref} transform={`translate(${0},${0})`}>
-      <circle ref={ref} fill={BLUEISH} className="findMe" r={4} />
-      <Text fill={BLUEISH} scaleToFit="shrink-only" width={40} x={-5} textAnchor="end">{month}</Text>
+      {/* Double ref assignment allows for d3 updates to both */}
+      <circle ref={ref} fill={BLUEISH} r={DOT_RADIUS} />
+      <Text
+        x={-5}
+        y={5}
+        width={40}
+        scaleToFit="shrink-only"
+        fill={BLUEISH}
+        textAnchor="end">
+        {month}
+      </Text>
     </g>
   )
 }

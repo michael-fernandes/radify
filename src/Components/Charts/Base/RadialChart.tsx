@@ -4,10 +4,10 @@ import { AxisLeft } from '@visx/axis';
 import { GridRadial, GridAngle } from '@visx/grid';
 import { ChartData } from '../../../Types/data';
 
-import { useMeasure } from "react-use";
+import { useDebounce, useMeasure } from "react-use";
 
 import { extentByDimension } from '../../../utils/extent';
-import { BLUEISH, MONTHS, ONE_MONTH_RADIAN } from '../../../Constants/constants';
+import { ANIMATION_PERIOD, BLUEISH, DOT_RADIUS, MONTHS, ONE_MONTH_RADIAN } from '../../../Constants/constants';
 import { CHART_PADDING } from './constants';
 import { grey, strokeColor } from '../../../Constants/Colors';
 
@@ -15,13 +15,16 @@ import RadialLabels from '../Labels/RadialLabels';
 import GradientPathLine from '../Lines/GradientPathLine';
 import "../overrides.css"
 import AnimatedPathLine from '../Lines/AnimatedPathLine';
-import { useEffect, useState } from 'react';
-import { radialPath } from '../../../utils/segmentPath';
+import { useEffect, useMemo, useState } from 'react';
+import segmentPath, { radialPath } from '../../../utils/segmentPath';
 import Legend from '../Legend/Legend';
 import { pointRadial } from 'd3-shape';
 import Text from '@visx/text/lib/Text';
 
+import debounce from 'lodash/debounce';
+
 import styles from "./Radial.module.css"
+import GradientAnimation from '../../load/GradientAnimation';
 
 
 const date = (d: ChartData) => d.Month.split(' ')[0];
@@ -31,16 +34,18 @@ export type LineRadialProps = {
   accessor?: any;
   data: ChartData[];
   dimensionName: string;
-  pathType: string,
   title?: string
-  showLegend?: boolean
   dataLabel?: string
 };
 
-function Radial({ dimensionName, accessor, data, pathType, title, showLegend, dataLabel = "" }: LineRadialProps) {
+function Radial({ dimensionName, accessor, data, title, dataLabel = "" }: LineRadialProps) {
   const [ref, { width, height }] = useMeasure<HTMLDivElement>();
   const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
-  const [hover, setHover] = useState<boolean>(false);
+  const [debounceAnimate, setDebounceAnimate] = useState<boolean>(false);
+
+  const debouncedAnimateFalse = debounce(() =>
+    setDebounceAnimate(false)
+    , ANIMATION_PERIOD * 2.1, { leading: false })
 
   const paddedWidth = width - 20;
 
@@ -68,19 +73,28 @@ function Radial({ dimensionName, accessor, data, pathType, title, showLegend, da
   const radiusLen = height / 2
   const outerRadiusLen = radiusLen - CHART_PADDING
 
-  useEffect(() => {
-    setShouldAnimate(true)
-  }, [])
+  // useEffect(() => {
+  //   debouncedAnimateFalse();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
-  const mouseOver = () => setHover(true)
-  const mouseOut = () => setHover(false)
+  const toggleAnimation = () => {
+    if (!debounceAnimate) {
+      console.log('debounced')
+      setShouldAnimate(true);
+      setDebounceAnimate(true);
+      debouncedAnimateFalse();
+    }
+  }
+
 
   return (
-    <div className={styles.grid_wrapper} onMouseOver={mouseOver} onMouseOut={mouseOut} >
+    <div className={styles.grid_wrapper} >
       <h3 className={styles.chart_title}>{title ?? dimensionName}</h3>
       <div className={styles.chart} ref={ref}>
+        <GradientAnimation />
         <div >
-          <svg className={styles.svg} width={paddedWidth} height={height} onClick={() => { !shouldAnimate && setShouldAnimate(!shouldAnimate) }}>
+          <svg className={styles.svg} width={paddedWidth} height={height} onClick={() => toggleAnimation()}>
             <Group top={radiusLen} left={paddedWidth / 2}>
 
               <AxisLeft
@@ -103,12 +117,13 @@ function Radial({ dimensionName, accessor, data, pathType, title, showLegend, da
                 hideAxisLine
               />
               <GradientPathLine
+                setShouldAnimate={setShouldAnimate}
                 shouldAnimate={shouldAnimate}
                 path={radialPath(data, angle, radius)}
                 width={paddedWidth}
                 height={height}
               />
-              < AnimatedPathLine
+              <AnimatedPathLine
                 setShouldAnimate={setShouldAnimate}
                 shouldAnimate={shouldAnimate}
                 angle={angle}
@@ -139,12 +154,14 @@ function Radial({ dimensionName, accessor, data, pathType, title, showLegend, da
                   const [x, y] = pointRadial(angle(d), radius(d));
                   return (
                     <g key={d.Month} transform={`translate(${x},${y})`}>
-                      <circle key={`line-cap-${d.MONTH}`} fill={BLUEISH} r={4} />
-                      <Text scaleToFit="shrink-only"
-                        x={-4} y={-7}
+                      <circle key={`line-cap-${d.MONTH}`} fill={BLUEISH} r={DOT_RADIUS} />
+                      <Text
+                        x={-5}
+                        y={!!index ? 5 : -7}
                         width={40}
+                        scaleToFit="shrink-only"
                         fill={BLUEISH}
-                        textAnchor="middle">
+                        textAnchor={!!index ? "end" : "start"}>
                         {d.Month.split(' ')[0] + " '" + d.Month.split(' ')[1].slice(-2)}
                       </Text>
                     </g>

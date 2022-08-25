@@ -20,19 +20,33 @@ const cpiData = _stlsfed.map((d: any) => {
 const uslaborData = interpolate(_usLaborData)
 const commodities = Object.keys(uslaborData[0]).filter(name => name !== "Month")
 
-interface Props {
-  pathType: string,
-}
-
-const RadialCharts = ({ pathType }: Props) => {
+const RadialCharts = () => {
   return (
     <section className={styles.container}>
       <div className={styles.grid}>
-        <RadialChart title="Consumer Price Index (% change YoY)" key="CPI all items" dimensionName="CPI all items" data={cpiData} pathType={pathType} showLegend />
+        <RadialChart
+          key="CPI all items"
+          dataLabel="%"
+          title="Consumer Price Index (% change YoY)"
+          dimensionName="CPI all items"
+          data={cpiData} />
       </div>
       <hr className={styles.hr} />
       <div className={styles.grid}>
-        {/* {commodities.map(commodity => <RadialChart key={commodity} data={uslaborData} dimensionName={commodity} pathType={pathType} />)} */}
+        {/* <RadialChart
+          title="Bananas ($ / lb)"
+          key="CPI all items"
+          dimensionName="Bananas ($ / lb)"
+          data={uslaborData}
+          pathType={pathType}
+          dataLabel="$"/> */}
+        {commodities.map(commodity =>
+          <RadialChart
+            key={commodity}
+            dataLabel="$"
+            data={uslaborData}
+            dimensionName={commodity}
+          />)}
       </div>
     </section>
   );

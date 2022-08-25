@@ -17,7 +17,6 @@ const YearLabels = ({ hover, angle, radius, pathType, data }: Props) => {
 
   return <>
     {hover && pathType === "linear" ? [firstPoint, lastPoint].map((d, i) => {
-      console.log('logging?')
       const [x, y] = pointRadial(angle(d), radius(d));
       // return <circle key={`line-cap-${i}`} cx={x} cy={y} fill={darkgreen} r={3} />;
       return (

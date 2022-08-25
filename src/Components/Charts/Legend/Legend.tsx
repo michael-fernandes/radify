@@ -14,7 +14,7 @@ const Legend = ({ p1, p2 }: Props) => {
   return (
     <>
       <svg width={WIDTH} height={HEIGHT}>
-        <GradientPathLine strokeWidth={HEIGHT} path={`M 0 2 L ${WIDTH} 2`} width={WIDTH} height={HEIGHT} shouldAnimate={false} isLegend />
+        {/* <GradientPathLine shouldAnimate={false} strokeWidth={HEIGHT} path={`M 0 2 L ${WIDTH} 2`} width={WIDTH} height={HEIGHT} shouldAnimate={false} isLegend /> */}
       </svg>
       <div style={{ width: WIDTH }} className={styles.label} >
         <div>

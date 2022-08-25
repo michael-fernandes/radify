@@ -33,14 +33,12 @@ const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShould
     frame: shouldAnimate ? 0 : 1,
     config: springConfig,
     onStart: () => {
-      setDebouncedAnimate(true);
+      setDebouncedAnimate(true)
     },
     onRest: () => {
       setShouldAnimate(false)
       setDebouncedAnimate(false)
     },
-    delay: 250,
-    reset: debounceAnimate
   });
 
   useEffect(() => {
@@ -49,7 +47,7 @@ const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShould
     }
   }, [lineRef, width]);
 
-
+  console.log(debounceAnimate)
   return (
     <>
       <RadialGradient from={"grey"} to={"grey"} id="line-gradient" />
@@ -58,7 +56,6 @@ const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShould
           const d = path(data) || '';
           return (
             <>
-              {/* <DotAnimation path={d} shouldAnimate={shouldAnimate} data={data} /> */}
               <animated.path
                 d={d}
                 ref={lineRef}
@@ -69,6 +66,7 @@ const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShould
                 stroke={'none'} />
               {shouldAnimate && (
                 <>
+                  <DotAnimation path={d} shouldAnimate={shouldAnimate} data={data} />
                   <animated.path
                     d={d}
                     strokeWidth={3}

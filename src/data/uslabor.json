@@ -14,20 +14,6 @@
     "Milk, fresh ($ / gal)": 2.944
   },
   {
-    "Month": "Mar 2019",
-    "Bananas ($ / lb)": 0.581,
-    "Oranges-Navel ($ / lb)": 1.346,
-    "White Bread ($ / lb)": 1.261,
-    "Tomatoes ($ / lb)": 2.079,
-    "Whole Chicken ($ / lb)": 1.468,
-    "Electricity ($ / kWh)": 0.135,
-    "Eggs(grade A) ($ / doz)": 1.544,
-    "Gasoline ($ / gallon)": 2.564,
-    "Ground beef ($ / lb)": 3.831,
-    "Utility Gas ($ / therm)": 1.048,
-    "Milk, fresh ($ / gal)": 2.944
-  },
-  {
     "Month": "Apr 2019",
     "Bananas ($ / lb)": 0.567,
     "Oranges-Navel ($ / lb)": 1.28,
@@ -186,7 +172,7 @@
     "Bananas ($ / lb)": 0.576,
     "Oranges-Navel ($ / lb)": 1.174,
     "White Bread ($ / lb)": 1.374,
-    "Tomatoes ($ / lb)": null,
+    "Tomatoes ($ / lb)": "",
     "Whole Chicken ($ / lb)": 1.4,
     "Electricity ($ / kWh)": 0.134,
     "Eggs(grade A) ($ / doz)": 1.525,
@@ -198,9 +184,9 @@
   {
     "Month": "Apr 2020",
     "Bananas ($ / lb)": 0.581,
-    "Oranges-Navel ($ / lb)": null,
+    "Oranges-Navel ($ / lb)": "",
     "White Bread ($ / lb)": 1.406,
-    "Tomatoes ($ / lb)": null,
+    "Tomatoes ($ / lb)": "",
     "Whole Chicken ($ / lb)": 1.571,
     "Electricity ($ / kWh)": 0.133,
     "Eggs(grade A) ($ / doz)": 2.019,
@@ -215,7 +201,7 @@
     "Oranges-Navel ($ / lb)": 1.209,
     "White Bread ($ / lb)": 1.412,
     "Tomatoes ($ / lb)": 1.851,
-    "Whole Chicken ($ / lb)": null,
+    "Whole Chicken ($ / lb)": "",
     "Electricity ($ / kWh)": 0.134,
     "Eggs(grade A) ($ / doz)": 1.64,
     "Gasoline ($ / gallon)": 1.879,
@@ -240,7 +226,7 @@
   {
     "Month": "Jul 2020",
     "Bananas ($ / lb)": 0.58,
-    "Oranges-Navel ($ / lb)": null,
+    "Oranges-Navel ($ / lb)": "",
     "White Bread ($ / lb)": 1.485,
     "Tomatoes ($ / lb)": 1.977,
     "Whole Chicken ($ / lb)": 1.712,
@@ -254,7 +240,7 @@
   {
     "Month": "Aug 2020",
     "Bananas ($ / lb)": 0.576,
-    "Oranges-Navel ($ / lb)": null,
+    "Oranges-Navel ($ / lb)": "",
     "White Bread ($ / lb)": 1.495,
     "Tomatoes ($ / lb)": 1.874,
     "Whole Chicken ($ / lb)": 1.609,
@@ -268,7 +254,7 @@
   {
     "Month": "Sep 2020",
     "Bananas ($ / lb)": 0.574,
-    "Oranges-Navel ($ / lb)": null,
+    "Oranges-Navel ($ / lb)": "",
     "White Bread ($ / lb)": 1.492,
     "Tomatoes ($ / lb)": 1.847,
     "Whole Chicken ($ / lb)": 1.542,
@@ -282,7 +268,7 @@
   {
     "Month": "Oct 2020",
     "Bananas ($ / lb)": 0.577,
-    "Oranges-Navel ($ / lb)": null,
+    "Oranges-Navel ($ / lb)": "",
     "White Bread ($ / lb)": 1.503,
     "Tomatoes ($ / lb)": 1.911,
     "Whole Chicken ($ / lb)": 1.58,
@@ -296,7 +282,7 @@
   {
     "Month": "Nov 2020",
     "Bananas ($ / lb)": 0.578,
-    "Oranges-Navel ($ / lb)": null,
+    "Oranges-Navel ($ / lb)": "",
     "White Bread ($ / lb)": 1.515,
     "Tomatoes ($ / lb)": 1.935,
     "Whole Chicken ($ / lb)": 1.639,
@@ -408,7 +394,7 @@
   {
     "Month": "Jul 2021",
     "Bananas ($ / lb)": 0.594,
-    "Oranges-Navel ($ / lb)": null,
+    "Oranges-Navel ($ / lb)": "",
     "White Bread ($ / lb)": 1.491,
     "Tomatoes ($ / lb)": 1.827,
     "Whole Chicken ($ / lb)": 1.435,
@@ -422,7 +408,7 @@
   {
     "Month": "Aug 2021",
     "Bananas ($ / lb)": 0.589,
-    "Oranges-Navel ($ / lb)": null,
+    "Oranges-Navel ($ / lb)": "",
     "White Bread ($ / lb)": 1.467,
     "Tomatoes ($ / lb)": 1.858,
     "Whole Chicken ($ / lb)": 1.472,
@@ -436,7 +422,7 @@
   {
     "Month": "Sep 2021",
     "Bananas ($ / lb)": 0.597,
-    "Oranges-Navel ($ / lb)": null,
+    "Oranges-Navel ($ / lb)": "",
     "White Bread ($ / lb)": 1.58,
     "Tomatoes ($ / lb)": 1.828,
     "Whole Chicken ($ / lb)": 1.504,
@@ -576,7 +562,7 @@
   {
     "Month": "Jul 2022",
     "Bananas ($ / lb)": 0.64,
-    "Oranges-Navel ($ / lb)": null,
+    "Oranges-Navel ($ / lb)": "",
     "White Bread ($ / lb)": 1.715,
     "Tomatoes ($ / lb)": 1.842,
     "Whole Chicken ($ / lb)": 1.88,
@@ -585,20 +571,6 @@
     "Gasoline ($ / gallon)": 4.667,
     "Ground beef ($ / lb)": 5.075,
     "Utility Gas ($ / therm)": 1.629,
-    "Milk, fresh ($ / gal)": null
-  },
-  {
-    "Month": "Jul 2022",
-    "Bananas ($ / lb)": 0.64,
-    "Oranges-Navel ($ / lb)": null,
-    "White Bread ($ / lb)": 1.715,
-    "Tomatoes ($ / lb)": 1.842,
-    "Whole Chicken ($ / lb)": 1.88,
-    "Electricity ($ / kWh)": 0.166,
-    "Eggs(grade A) ($ / doz)": 2.936,
-    "Gasoline ($ / gallon)": 4.667,
-    "Ground beef ($ / lb)": 5.075,
-    "Utility Gas ($ / therm)": 1.629,
-    "Milk, fresh ($ / gal)": null
+    "Milk, fresh ($ / gal)": 4.156
   }
- ]
+]
