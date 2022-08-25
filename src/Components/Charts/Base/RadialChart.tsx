@@ -34,9 +34,10 @@ export type LineRadialProps = {
   pathType: string,
   title?: string
   showLegend?: boolean
+  dataLabel?: string
 };
 
-function Radial({ dimensionName, accessor, data, pathType, title, showLegend }: LineRadialProps) {
+function Radial({ dimensionName, accessor, data, pathType, title, showLegend, dataLabel = "" }: LineRadialProps) {
   const [ref, { width, height }] = useMeasure<HTMLDivElement>();
   const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
   const [hover, setHover] = useState<boolean>(false);
@@ -98,7 +99,7 @@ function Radial({ dimensionName, accessor, data, pathType, title, showLegend }: 
                   strokeWidth: 0.5,
                   paintOrder: 'stroke',
                 })}
-                tickFormat={(d) => String(d)}
+                tickFormat={(d) => `${dataLabel}${String(d)}`}
                 hideAxisLine
               />
               <GradientPathLine
