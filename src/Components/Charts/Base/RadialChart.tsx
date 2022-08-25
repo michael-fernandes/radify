@@ -94,7 +94,7 @@ function Radial({ dimensionName, accessor, data, pathType, title, showLegend, da
                   fillOpacity: 1,
                   textAnchor: 'middle',
                   dx: '1em',
-                  dy: '-0.5em',
+                  dy: '-0.8em',
                   stroke: strokeColor,
                   strokeWidth: 0.5,
                   paintOrder: 'stroke',
