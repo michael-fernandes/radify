@@ -78,7 +78,6 @@ function Radial({ dimensionName, accessor, data, title, dataLabel = "" }: LineRa
 
   const toggleAnimation = () => {
     if (!debounceAnimate) {
-      console.log('debounced')
       setShouldAnimate(true);
       setDebounceAnimate(true);
       debouncedAnimateFalse();

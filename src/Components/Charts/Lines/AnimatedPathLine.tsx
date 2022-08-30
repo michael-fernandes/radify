@@ -47,7 +47,7 @@ const AnimatedPathLine = ({ width, angle, radius, data, shouldAnimate, setShould
     }
   }, [lineRef, width]);
 
-  console.log(debounceAnimate)
+
   return (
     <>
       <RadialGradient from={"grey"} to={"grey"} id="line-gradient" />

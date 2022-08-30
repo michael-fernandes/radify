@@ -86,14 +86,12 @@ export default function DotAnimation({ path, shouldAnimate, data }: Props) {
         .duration(ANIMATION_PERIOD)
         .tween("pathTween", pathTween)
         .on('end', () => {
-          console.log('ended')
           select(ref.current)
             .transition()
             .ease(easings.easeInOutBack)
             .duration(250)
             .style("opacity", 0)
-        }
-        )
+        })
     }
 
   }, [ref, path, shouldAnimate, pathTween])
