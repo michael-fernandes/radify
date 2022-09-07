@@ -5,8 +5,9 @@ import { useEffect } from 'react';
 import Footer from './Components/Footer/Footer';
 import ReactGA from 'react-ga';
 
-if (process.env.REACT_APP_GA_TRACKER && process.env.NODE_ENV !== "development") {
-  ReactGA.initialize(process.env.REACT_APP_GA_TRACKER || '');
+if (process.env.NODE_ENV !== "development") {
+  // Add to app engine, right now more useful to have
+  ReactGA.initialize("UA-73790222-1" || '');
 }
 
 function App() {
