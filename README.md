@@ -3,10 +3,10 @@ Radify visualizes data in a continous radial graphics to highlight the seasonali
 
 [Radify.info](https://radify-357623.uw.r.appspot.com/).
 
-###Radial gradient to highlight timeseries time
+### Radial gradient to highlight timeseries time
 <img src="https://user-images.githubusercontent.com/14987935/185210013-700c4bac-fa7c-40ef-b430-543207941b85.png" alt="RADIAL" width="275"/>
 
-###Linear gradient to show absolute value
+### Linear gradient to show absolute value
 <img src="https://user-images.githubusercontent.com/14987935/185210023-2c92a9d1-0ab7-4cca-9a17-6c2910ee79d6.png" alt="LINEAR" width="275"/>
 
 ### Tools
