@@ -94,26 +94,7 @@ function Radial({ dimensionName, accessor, data, title, dataLabel = "" }: LineRa
         <div >
           <svg className={styles.svg} width={paddedWidth} height={height} onClick={() => toggleAnimation()}>
             <Group top={radiusLen} left={paddedWidth / 2}>
-              <AxisLeft
-                top={-outerRadiusLen}
-                scale={reverseYScale}
-                numTicks={5}
-                tickStroke="none"
-                tickLabelProps={() => ({
-                  fontSize: 8,
-                  fill: "black",
-                  fillOpacity: 1,
-                  textAnchor: 'middle',
-                  dx: '1em',
-                  // dy: '0.6em',
-                  stroke: strokeColor,
-                  strokeWidth: 0.5,
-                  paintOrder: 'stroke',
-                })}
-                tickFormat={(d) => `${dataLabel}${dataLabel === "$" ? String(Number(d).toFixed(2)) : Number(d)}`}
-                hideAxisLine
-              // innerRadius={innerRadius}
-              />
+
               <GradientPathLine
                 setShouldAnimate={setShouldAnimate}
                 shouldAnimate={shouldAnimate}
@@ -167,6 +148,26 @@ function Radial({ dimensionName, accessor, data, title, dataLabel = "" }: LineRa
                   )
                 })
               }
+              <AxisLeft
+                top={-outerRadiusLen}
+                scale={reverseYScale}
+                numTicks={5}
+                tickStroke="none"
+                tickLabelProps={() => ({
+                  fontSize: 8,
+                  fill: "black",
+                  fillOpacity: 1,
+                  textAnchor: 'middle',
+                  dx: '1em',
+                  // dy: '0.25em',
+                  stroke: strokeColor,
+                  strokeWidth: 0.5,
+                  paintOrder: 'stroke',
+                })}
+                tickFormat={(d) => `${dataLabel}${dataLabel === "$" ? String(Number(d).toFixed(2)) : Number(d)}`}
+                hideAxisLine
+              // innerRadius={innerRadius}
+              />
             </Group>
           </svg>
         </div>
