@@ -28,6 +28,8 @@ import styles from "./Radial.module.css"
 const date = (d: ChartData) => d.Month.split(' ')[0];
 const circularDomain = Array(12).fill(0).map((_d, index) => (index) * ONE_MONTH_RADIAN);
 
+const innerRadius = 50;
+
 export type LineRadialProps = {
   accessor?: any;
   data: ChartData[];
@@ -45,7 +47,7 @@ function Radial({ dimensionName, accessor, data, title, dataLabel = "" }: LineRa
     setDebounceAnimate(false)
     , ANIMATION_PERIOD * 2.1, { leading: false })
 
-  const paddedWidth = width - 20;
+  const paddedWidth = width - CHART_PADDING;
 
   const yAccessor = accessor ?? ((datum: ChartData) => datum[dimensionName])
 
@@ -59,7 +61,7 @@ function Radial({ dimensionName, accessor, data, title, dataLabel = "" }: LineRa
   });
 
   // Update scale output to match component dimensions
-  yScale.range([0, paddedWidth / 2 - CHART_PADDING]);
+  yScale.range([innerRadius, (paddedWidth - innerRadius) / 2 - CHART_PADDING]);
   const reverseYScale = yScale.copy().range(yScale.range().reverse());
 
   const radius = (d: ChartData) => yScale(yAccessor(d)) ?? 0;
@@ -92,7 +94,6 @@ function Radial({ dimensionName, accessor, data, title, dataLabel = "" }: LineRa
         <div >
           <svg className={styles.svg} width={paddedWidth} height={height} onClick={() => toggleAnimation()}>
             <Group top={radiusLen} left={paddedWidth / 2}>
-
               <AxisLeft
                 top={-outerRadiusLen}
                 scale={reverseYScale}
@@ -104,13 +105,14 @@ function Radial({ dimensionName, accessor, data, title, dataLabel = "" }: LineRa
                   fillOpacity: 1,
                   textAnchor: 'middle',
                   dx: '1em',
-                  dy: '-0.8em',
+                  // dy: '0.6em',
                   stroke: strokeColor,
                   strokeWidth: 0.5,
                   paintOrder: 'stroke',
                 })}
                 tickFormat={(d) => `${dataLabel}${dataLabel === "$" ? String(Number(d).toFixed(2)) : Number(d)}`}
                 hideAxisLine
+              // innerRadius={innerRadius}
               />
               <GradientPathLine
                 setShouldAnimate={setShouldAnimate}
@@ -129,7 +131,7 @@ function Radial({ dimensionName, accessor, data, title, dataLabel = "" }: LineRa
               <GridRadial
                 className={styles.gridRadial}
                 scale={yScale}
-                numTicks={6}
+                numTicks={7}
                 stroke={grey}
                 strokeWidth={1}
                 fill={grey}
@@ -143,6 +145,7 @@ function Radial({ dimensionName, accessor, data, title, dataLabel = "" }: LineRa
                 strokeWidth={1}
                 strokeOpacity={0.3}
                 numTicks={10}
+                innerRadius={innerRadius}
               />
               <RadialLabels xScale={xScale} yScale={yScale} />
               {!shouldAnimate &&
