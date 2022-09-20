@@ -20,4 +20,4 @@ export const CONTENT = {
   madeBy: "Made by Michael Fernandes in Jul 2022, using React, VisX and D3.js"
 }
 
-export const BLUEISH = "#4E5180"
+export const BLUEISH = "#4E5180"export const START_DATE = "Mar 2020";
