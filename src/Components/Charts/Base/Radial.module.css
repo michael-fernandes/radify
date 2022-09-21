@@ -26,3 +26,8 @@
 .grid_radial {
   font-size: 10;
 }
+
+.chart_button {
+  border: unset;
+  background: unset;
+}

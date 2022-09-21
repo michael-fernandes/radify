@@ -15,9 +15,6 @@ export const DOT_RADIUS = 4;
 export const ANIMATION_PERIOD = 12500;
 export const ANIMATION_DELAY = 3000;
 
-export const CONTENT = {
-  intro: "Visualize the seasonality in inflation data.  Data sources include Consumer Price Index(CPI) (% YoY Change) and commoditiy index from the St. Louis Fed and Us Labor Department respectively.",
-  madeBy: "Made by Michael Fernandes in Jul 2022, using React, VisX and D3.js"
-}
+
 
 export const BLUEISH = "#4E5180"
