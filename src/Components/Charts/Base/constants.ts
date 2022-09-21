@@ -1,1 +1,1 @@
-export const CHART_PADDING = 20
+export const CHART_PADDING = 10
