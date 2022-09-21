@@ -28,7 +28,7 @@ import styles from "./Radial.module.css"
 const date = (d: ChartData) => d.Month.split(' ')[0];
 const circularDomain = Array(12).fill(0).map((_d, index) => (index) * ONE_MONTH_RADIAN);
 
-const innerRadius = 50;
+const innerRadius = 35;
 
 export type LineRadialProps = {
   accessor?: any;
